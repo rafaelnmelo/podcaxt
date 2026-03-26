@@ -1,10 +1,3 @@
-//
-//  podcaxtUITests.swift
-//  podcaxtUITests
-//
-//  Created by Rafael Nunes on 26/03/26.
-//
-
 import XCTest
 
 final class podcaxtUITests: XCTestCase {
