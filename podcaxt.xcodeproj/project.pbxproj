@@ -17,6 +17,8 @@
 		756EADF12F75B63600C3E9B2 /* RSSFeedURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADEE2F75B63600C3E9B2 /* RSSFeedURL.swift */; };
 		756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADEF2F75B63600C3E9B2 /* Podcast.swift */; };
 		756EADF32F75B63600C3E9B2 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADF02F75B63600C3E9B2 /* Episode.swift */; };
+		756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADF82F75B89F00C3E9B2 /* ImageCache.swift */; };
+		756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADFE2F75C08F00C3E9B2 /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		756EADEE2F75B63600C3E9B2 /* RSSFeedURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSSFeedURL.swift; path = podcaxt/Models/RSSFeedURL.swift; sourceTree = SOURCE_ROOT; };
 		756EADEF2F75B63600C3E9B2 /* Podcast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Podcast.swift; path = podcaxt/Models/Podcast.swift; sourceTree = SOURCE_ROOT; };
 		756EADF02F75B63600C3E9B2 /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Episode.swift; path = podcaxt/Models/Episode.swift; sourceTree = SOURCE_ROOT; };
+		756EADF82F75B89F00C3E9B2 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = podcaxt/Data/Cache/ImageCache.swift; sourceTree = SOURCE_ROOT; };
+		756EADFE2F75C08F00C3E9B2 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageService.swift; path = podcaxt/Services/ImageService.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				756EADE92F75B5DF00C3E9B2 /* App */,
+				756EADF42F75B88400C3E9B2 /* Data */,
 				756EADEA2F75B5FC00C3E9B2 /* Domain */,
 				756EADEC2F75B61100C3E9B2 /* Presentation */,
 				756EADED2F75B61C00C3E9B2 /* Resources */,
@@ -174,6 +179,31 @@
 				756EADC32F75AA8400C3E9B2 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		756EADF42F75B88400C3E9B2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				756EAE002F75C1A600C3E9B2 /* Cache */,
+				756EADF52F75B88D00C3E9B2 /* Services */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		756EADF52F75B88D00C3E9B2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				756EADFE2F75C08F00C3E9B2 /* ImageService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		756EAE002F75C1A600C3E9B2 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				756EADF82F75B89F00C3E9B2 /* ImageCache.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +337,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				756EADF12F75B63600C3E9B2 /* RSSFeedURL.swift in Sources */,
+				756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */,
+				756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */,
 				756EADC22F75AA8300C3E9B2 /* ContentView.swift in Sources */,
 				756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */,
 				756EADF32F75B63600C3E9B2 /* Episode.swift in Sources */,
