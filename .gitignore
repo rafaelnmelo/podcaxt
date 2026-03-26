@@ -1,62 +1,113 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+# Xcode - Build files and derived data
+build/
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
 
-## User settings
-xcuserdata/
+# Legacy compatibility files (old Xcode)
+*.xccheckout
+*.xcscmblueprint
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.moved-aside
 
-## Obj-C/Swift specific
-*.hmap
+# Swift Package Manager (SPM)
+.build/
+.swiftpm/
+Packages/
 
-## App packaging
+# Remove the line below if you want to version resolved dependencies
+Package.resolved
+
+# CocoaPods
+Pods/
+*.lock
+
+# If you prefer to version Podfile.lock, remove the line above
+# Recommended in teams: keep Podfile.lock in the repository
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# Other dependency tools
+# Accio
+Dependencies/
+.accio/
+
+# Tuist
+Tuist/Dependencies/
+Tuist/.build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Build and distribution files
 *.ipa
-*.dSYM.zip
 *.dSYM
+*.dSYM.zip
 
-## Playgrounds
+# Playgrounds
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
+# OS files
+.DS_Store
 
-.build/
+# Local user settings
+*.xcconfig.local
+.env
+.env.*
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+# Xcode project internals (keep only the essentials)
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
 
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
 
-Carthage/Build/
+# Code Injection / Hot Reload
+iOSInjectionProject/
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
+# Temporary files and logs
+*.log
+*.tmp
+*.swp
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+# Coverage and profiling
+*.gcno
+*.gcda
+*.profdata
+
+# Visual Basic / Visual Studio
+## Build output
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+
+## Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vbproj.user
+
+## NuGet packages
+packages/
+*.nupkg
+*.snupkg
+
+## Publish output
+publish/
+PublishProfiles/
