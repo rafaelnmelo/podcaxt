@@ -1,0 +1,53 @@
+import Foundation
+
+protocol FeedHistoryPersisting {
+    func fetchHistory() -> [RSSFeedURL]
+    func saveURL(_ url: URL)
+    func removeURL(_ url: URL)
+    func clearHistory()
+}
+
+final class PersistenceService: FeedHistoryPersisting {
+    static let shared = PersistenceService()
+
+    private let key = "rss_feed_history"
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+    }
+
+    /// Returns the URL history sorted by most recently used.
+    /// Returns an empty array if no history is found or decoding fails.
+    func fetchHistory() -> [RSSFeedURL] {
+        guard
+            let data = defaults.data(forKey: key),
+            let history = try? JSONDecoder().decode([RSSFeedURL].self, from: data)
+        else { return [] }
+        return history.sorted { $0.lastUsed > $1.lastUsed }
+    }
+
+    /// Saves a URL to history, moving it to the top if it already exists.
+    /// - Parameter url: RSS feed URL to save.
+    func saveURL(_ url: URL) {
+        var history = fetchHistory().filter { $0.url != url }
+        history.insert(RSSFeedURL(url: url), at: 0)
+        if let data = try? JSONEncoder().encode(history) {
+            defaults.set(data, forKey: key)
+        }
+    }
+
+    /// Removes a specific URL from history.
+    /// - Parameter url: RSS feed URL to remove.
+    func removeURL(_ url: URL) {
+        let history = fetchHistory().filter { $0.url != url }
+        if let data = try? JSONEncoder().encode(history) {
+            defaults.set(data, forKey: key)
+        }
+    }
+
+    /// Clears the entire URL history from UserDefaults.
+    func clearHistory() {
+        defaults.removeObject(forKey: key)
+    }
+}

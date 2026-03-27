@@ -22,6 +22,7 @@
 		756EAE0A2F75CFCD00C3E9B2 /* RSSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */; };
 		756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */; };
 		756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */; };
+		75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC762F768CC70040CB75 /* PersistenceService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSCache.swift; sourceTree = "<group>"; };
 		756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
 		756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSService.swift; sourceTree = "<group>"; };
+		75C2DC762F768CC70040CB75 /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				756EADFE2F75C08F00C3E9B2 /* ImageService.swift */,
+				75C2DC762F768CC70040CB75 /* PersistenceService.swift */,
 				756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */,
 				756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */,
 			);
@@ -348,6 +351,7 @@
 				756EADF12F75B63600C3E9B2 /* RSSFeedURL.swift in Sources */,
 				756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */,
 				756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */,
+				75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */,
 				756EADC22F75AA8300C3E9B2 /* ContentView.swift in Sources */,
 				756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */,
 				756EAE0A2F75CFCD00C3E9B2 /* RSSCache.swift in Sources */,
