@@ -19,6 +19,9 @@
 		756EADF32F75B63600C3E9B2 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADF02F75B63600C3E9B2 /* Episode.swift */; };
 		756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADF82F75B89F00C3E9B2 /* ImageCache.swift */; };
 		756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADFE2F75C08F00C3E9B2 /* ImageService.swift */; };
+		756EAE0A2F75CFCD00C3E9B2 /* RSSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */; };
+		756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */; };
+		756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,9 @@
 		756EADF02F75B63600C3E9B2 /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Episode.swift; path = podcaxt/Models/Episode.swift; sourceTree = SOURCE_ROOT; };
 		756EADF82F75B89F00C3E9B2 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = podcaxt/Data/Cache/ImageCache.swift; sourceTree = SOURCE_ROOT; };
 		756EADFE2F75C08F00C3E9B2 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageService.swift; path = podcaxt/Services/ImageService.swift; sourceTree = SOURCE_ROOT; };
+		756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSCache.swift; sourceTree = "<group>"; };
+		756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
+		756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +200,8 @@
 			isa = PBXGroup;
 			children = (
 				756EADFE2F75C08F00C3E9B2 /* ImageService.swift */,
+				756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */,
+				756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -202,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				756EADF82F75B89F00C3E9B2 /* ImageCache.swift */,
+				756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -341,8 +350,11 @@
 				756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */,
 				756EADC22F75AA8300C3E9B2 /* ContentView.swift in Sources */,
 				756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */,
+				756EAE0A2F75CFCD00C3E9B2 /* RSSCache.swift in Sources */,
 				756EADF32F75B63600C3E9B2 /* Episode.swift in Sources */,
+				756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */,
 				756EADC02F75AA8300C3E9B2 /* podcaxtApp.swift in Sources */,
+				756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
