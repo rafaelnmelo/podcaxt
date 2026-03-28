@@ -66,7 +66,7 @@ private extension PodcastDetailView {
             ForEach(viewModel.podcast.episodes) { episode in
                 EpisodeRowView(
                     episode: episode,
-                    duration: viewModel.formattedDuration(for: episode)
+                    duration: episode.duration?.formattedDuration
                 )
                 .contentShape(Rectangle())
                 .onTapGesture { selectedEpisode = episode }
