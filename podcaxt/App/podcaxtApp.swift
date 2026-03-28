@@ -4,7 +4,7 @@ import SwiftUI
 struct podcaxtApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RSSInputView()
         }
     }
 }
