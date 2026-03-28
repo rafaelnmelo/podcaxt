@@ -31,29 +31,9 @@ struct RSSInputView: View {
 private extension RSSInputView {
     var inputSection: some View {
         Section {
-            TextField("https://feeds.example.com/podcast", text: $viewModel.urlText)
-                .keyboardType(.URL)
-                .autocorrectionDisabled()
-                .textInputAutocapitalization(.never)
-
-            Button(action: { Task { await viewModel.submitURL() } }) {
-                HStack {
-                    Spacer()
-                    if case .loading = viewModel.state {
-                        ProgressView()
-                    } else {
-                        Text("Buscar Podcast")
-                    }
-                    Spacer()
-                }
-            }
-            .disabled(viewModel.urlText.isEmpty || isLoading)
-
-            if case .failure(let message) = viewModel.state {
-                Text(message)
-                    .foregroundStyle(.red)
-                    .font(.caption)
-            }
+            urlTextField
+            submitButton
+            errorMessage
         }
     }
 
@@ -69,12 +49,51 @@ private extension RSSInputView {
                 indexSet.map { viewModel.history[$0] }.forEach(viewModel.removeFromHistory)
             }
         } header: {
+            historySectionHeader
+        }
+    }
+}
+
+// MARK: - Components
+
+private extension RSSInputView {
+    var urlTextField: some View {
+        TextField("Cole uma URL de feed RSS ...", text: $viewModel.urlText)
+            .keyboardType(.URL)
+            .autocorrectionDisabled()
+            .textInputAutocapitalization(.never)
+    }
+
+    var submitButton: some View {
+        Button(action: { Task { await viewModel.submitURL() } }) {
             HStack {
-                Text("Recente")
                 Spacer()
-                Button("Limpar", action: viewModel.clearHistory)
-                    .font(.caption)
+                if case .loading = viewModel.state {
+                    ProgressView()
+                } else {
+                    Text("Carregar Podcast")
+                }
+                Spacer()
             }
+        }
+        .disabled(viewModel.urlText.isEmpty || isLoading)
+    }
+
+    @ViewBuilder
+    var errorMessage: some View {
+        if case .failure(let message) = viewModel.state {
+            Text(message)
+                .foregroundStyle(.red)
+                .font(.caption)
+        }
+    }
+
+    var historySectionHeader: some View {
+        HStack {
+            Text("Recente")
+            Spacer()
+            Button("Limpar", action: viewModel.clearHistory)
+                .font(.caption)
         }
     }
 
