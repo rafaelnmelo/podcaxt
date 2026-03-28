@@ -34,26 +34,8 @@ private extension PodcastDetailView {
                 coverImage
                     .frame(width: 160, height: 160)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                VStack(alignment: .center, spacing: 4) {
-                    Text(viewModel.podcast.title)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-
-                    Text(viewModel.podcast.author)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-
-                    Text(viewModel.podcast.category.name)
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
-                }
-
-                Text(viewModel.podcast.description)
-                    .font(.body)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.leading)
+                podcastInfo
+                podcastDescription
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
@@ -72,11 +54,43 @@ private extension PodcastDetailView {
                 .onTapGesture { selectedEpisode = episode }
             }
         } header: {
-            Text("\(viewModel.podcast.episodes.count) Episodes")
-                .font(.headline)
-                .foregroundStyle(.primary)
-                .padding(.vertical, 4)
+            episodesSectionHeader
         }
+    }
+}
+
+// MARK: - Components
+
+private extension PodcastDetailView {
+    var podcastInfo: some View {
+        VStack(alignment: .center, spacing: 4) {
+            Text(viewModel.podcast.title)
+                .font(.title2)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+
+            Text(viewModel.podcast.author)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            Text(viewModel.podcast.category.name)
+                .font(.caption)
+                .foregroundStyle(.tertiary)
+        }
+    }
+
+    var podcastDescription: some View {
+        Text(viewModel.podcast.description)
+            .font(.body)
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.leading)
+    }
+
+    var episodesSectionHeader: some View {
+        Text("\(viewModel.podcast.episodes.count) Episodes")
+            .font(.headline)
+            .foregroundStyle(.primary)
+            .padding(.vertical, 4)
     }
 
     @ViewBuilder
@@ -92,61 +106,6 @@ private extension PodcastDetailView {
                 .fill(Color.secondary.opacity(0.2))
                 .overlay(Image(systemName: "mic.fill").font(.largeTitle))
         }
-    }
-}
-
-// MARK: - Episode Row
-
-private struct EpisodeRowView: View {
-    let episode: Episode
-    let duration: String?
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text(episode.title)
-                    .font(.body)
-                    .fontWeight(.medium)
-                    .lineLimit(2)
-
-                Spacer()
-
-                Image(systemName: "play.circle")
-                    .foregroundStyle(.tint)
-                    .font(.title2)
-            }
-
-            HStack(spacing: 8) {
-                if let pubDate = episode.pubDate {
-                    Text(pubDate.formatted(date: .abbreviated, time: .omitted))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                if let duration {
-                    Text(duration)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                if episode.isExplicit {
-                    Text("E")
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal, 4)
-                        .background(Color.secondary.opacity(0.2))
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
-                }
-            }
-
-            if !episode.description.isEmpty {
-                Text(episode.description)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(2)
-            }
-        }
-        .padding(.vertical, 4)
     }
 }
 
