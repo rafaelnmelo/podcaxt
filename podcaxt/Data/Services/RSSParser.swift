@@ -18,7 +18,7 @@ final class RSSParser: NSObject, RSSParsing {
     /// - Returns: Parsed `Podcast` with its episodes.
     /// - Throws: Network or parsing error.
     func fetchAndParse(from url: URL) async throws -> Podcast {
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.debugData(from: url)
         return try parse(data)
     }
 

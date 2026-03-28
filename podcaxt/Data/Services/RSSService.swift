@@ -27,7 +27,7 @@ final class RSSService: RSSFetching {
             return try parser.parse(cached)
         }
 
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.debugData(from: url)
         try? await cache.cache(data, for: url)
         return try parser.parse(data)
     }

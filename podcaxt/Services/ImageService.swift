@@ -23,7 +23,7 @@ final class ImageService: ImageFetching {
             return cached
         }
 
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.debugData(from: url)
         await cache.cache(data, for: url)
         return data
     }
