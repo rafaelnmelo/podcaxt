@@ -15,11 +15,11 @@ struct RSSInputView: View {
             .navigationTitle("Podcaxt")
             .onAppear { viewModel.loadHistory() }
             .navigationDestination(item: $navigateToPodcast) { podcast in
-                Text(podcast.title) // placeholder para PodcastDetailView
+                PodcastDetailView(podcast: podcast)
             }
         }
-        .onChange(of: viewModel.state) { _, state in
-            if case .success(let podcast) = state {
+        .onAppear {
+            viewModel.onSuccess = { podcast in
                 navigateToPodcast = podcast
             }
         }

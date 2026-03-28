@@ -14,6 +14,8 @@ final class RSSInputViewModel: ObservableObject {
     @Published private(set) var state: RSSInputState = .idle
     @Published private(set) var history: [RSSFeedURL] = []
 
+    var onSuccess: ((Podcast) -> Void)?
+
     private let rssService: any RSSFetching
     private let persistence: any FeedHistoryPersisting
 
@@ -38,6 +40,7 @@ final class RSSInputViewModel: ObservableObject {
             persistence.saveURL(url)
             reloadHistory()
             state = .success(podcast)
+            onSuccess?(podcast)
         } catch {
             state = .failure(error.localizedDescription)
         }
