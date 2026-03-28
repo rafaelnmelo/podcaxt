@@ -23,6 +23,7 @@
 		756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */; };
 		756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */; };
 		75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC762F768CC70040CB75 /* PersistenceService.swift */; };
+		75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
 		756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSService.swift; sourceTree = "<group>"; };
 		75C2DC762F768CC70040CB75 /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 		756EADF52F75B88D00C3E9B2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */,
 				756EADFE2F75C08F00C3E9B2 /* ImageService.swift */,
 				75C2DC762F768CC70040CB75 /* PersistenceService.swift */,
 				756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */,
@@ -359,6 +362,7 @@
 				756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */,
 				756EADC02F75AA8300C3E9B2 /* podcaxtApp.swift in Sources */,
 				756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */,
+				75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
