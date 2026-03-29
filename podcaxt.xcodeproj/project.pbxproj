@@ -29,6 +29,7 @@
 		75B547712F78435A0061301C /* Podcast+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547702F78435A0061301C /* Podcast+Mock.swift */; };
 		75B547732F7860510061301C /* TimeInterval+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547722F7860510061301C /* TimeInterval+Formatting.swift */; };
 		75B547752F7866E50061301C /* EpisodeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547742F7866E50061301C /* EpisodeRowView.swift */; };
+		75B547782F7872980061301C /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547762F7872980061301C /* PlayerViewModel.swift */; };
 		75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC762F768CC70040CB75 /* PersistenceService.swift */; };
 		75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */; };
 		75F3FB4C2F7761B900FEC5C7 /* RSSInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FB4A2F7761B900FEC5C7 /* RSSInputViewModel.swift */; };
@@ -78,6 +79,7 @@
 		75B547702F78435A0061301C /* Podcast+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Podcast+Mock.swift"; sourceTree = "<group>"; };
 		75B547722F7860510061301C /* TimeInterval+Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Formatting.swift"; sourceTree = "<group>"; };
 		75B547742F7866E50061301C /* EpisodeRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeRowView.swift; sourceTree = "<group>"; };
+		75B547762F7872980061301C /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		75C2DC762F768CC70040CB75 /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
 		75F3FB4A2F7761B900FEC5C7 /* RSSInputViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSInputViewModel.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				75B5476C2F78241A0061301C /* Components */,
+				75B547772F7872980061301C /* Player */,
 				75B547692F7822AF0061301C /* PodcastDetail */,
 				75F3FB4B2F7761B900FEC5C7 /* RSSInput */,
 			);
@@ -259,6 +262,14 @@
 				75B5476B2F78241A0061301C /* ImageLoader.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		75B547772F7872980061301C /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				75B547762F7872980061301C /* PlayerViewModel.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		75F3FB4B2F7761B900FEC5C7 /* RSSInput */ = {
@@ -439,6 +450,7 @@
 				756EADC02F75AA8300C3E9B2 /* podcaxtApp.swift in Sources */,
 				756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */,
 				75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */,
+				75B547782F7872980061301C /* PlayerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
