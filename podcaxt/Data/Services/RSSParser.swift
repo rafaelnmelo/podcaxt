@@ -27,6 +27,9 @@ final class RSSParser: NSObject, RSSParsing {
     /// - Returns: Parsed `Podcast` with its episodes.
     /// - Throws: `RSSParserError.invalidFeed` if the data is malformed or required fields are missing.
     func parse(_ data: Data) throws -> Podcast {
+        podcast = nil
+        episodes = []
+        _podcastBuilder = nil
         let xmlParser = XMLParser(data: data)
         xmlParser.delegate = self
         guard xmlParser.parse(), let podcast = podcast else {
