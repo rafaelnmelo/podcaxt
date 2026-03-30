@@ -13,7 +13,7 @@ struct RSSInputView: View {
                 }
             }
             .navigationTitle("Podcaxt")
-            .onAppear { viewModel.loadHistory() }
+            .task { viewModel.loadHistory() }
             .navigationDestination(item: $navigateToPodcast) { podcast in
                 PodcastDetailView(podcast: podcast)
             }
@@ -39,7 +39,7 @@ private extension RSSInputView {
 
     var historySection: some View {
         Section {
-            ForEach(viewModel.history) { feedURL in
+            ForEach(viewModel.history, id: \.url) { feedURL in
                 Button {
                     Task { await viewModel.select(feedURL) }
                 } label: {

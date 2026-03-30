@@ -24,12 +24,16 @@ final class RSSService: RSSFetching {
     /// - Returns: Parsed `Podcast` with its episodes.
     func fetchPodcast(from url: URL) async throws -> Podcast {
         if let cached = await cache.cachedData(for: url) {
-            return try parser.parse(cached)
+            return try await Task.detached { [parser] in
+                try parser.parse(cached)
+            }.value
         }
 
         let (data, _) = try await URLSession.shared.debugData(from: url)
         try? await cache.cache(data, for: url)
-        return try parser.parse(data)
+        return try await Task.detached { [parser] in
+            try parser.parse(data)
+        }.value
     }
 
     /// Removes the cached data for a specific feed URL.

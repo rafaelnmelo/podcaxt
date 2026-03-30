@@ -1,49 +1,34 @@
 import Foundation
 
 protocol RSSParsing {
-    func fetchAndParse(from url: URL) async throws -> Podcast
     func parse(_ data: Data) throws -> Podcast
 }
 
-final class RSSParser: NSObject, RSSParsing {
-    private var podcast: Podcast?
-    private var episodes: [Episode] = []
-    private var currentEpisode: EpisodeBuilder?
-    private var currentElement = ""
-    private var currentText = ""
-    private var _podcastBuilder: PodcastBuilder?
-
-    /// Fetches RSS data from the network and parses it into a `Podcast`.
-    /// - Parameter url: Remote RSS feed URL.
-    /// - Returns: Parsed `Podcast` with its episodes.
-    /// - Throws: Network or parsing error.
-    func fetchAndParse(from url: URL) async throws -> Podcast {
-        let (data, _) = try await URLSession.shared.debugData(from: url)
-        return try parse(data)
-    }
-
+final class RSSParser: RSSParsing {
     /// Parses raw RSS `Data` into a `Podcast`.
-    /// - Parameter data: Raw RSS feed data.
-    /// - Returns: Parsed `Podcast` with its episodes.
-    /// - Throws: `RSSParserError.invalidFeed` if the data is malformed or required fields are missing.
+    /// Each call creates an isolated ParseContext as delegate, making it fully thread-safe.
     func parse(_ data: Data) throws -> Podcast {
-        podcast = nil
-        episodes = []
-        _podcastBuilder = nil
+        let context = ParseContext()
         let xmlParser = XMLParser(data: data)
-        xmlParser.delegate = self
-        guard xmlParser.parse(), let podcast = podcast else {
+        xmlParser.delegate = context
+        guard xmlParser.parse(), let podcast = context.podcast else {
             throw RSSParserError.invalidFeed
         }
         return podcast
     }
 }
 
-// MARK: - XMLParserDelegate
+// MARK: - ParseContext
 
-extension RSSParser: XMLParserDelegate {
+private final class ParseContext: NSObject, XMLParserDelegate {
+    var podcast: Podcast?
+
+    private var episodes: [Episode] = []
+    private var currentEpisode: EpisodeBuilder?
+    private var currentText = ""
+    private var podcastBuilder = PodcastBuilder()
+
     func parser(_ parser: XMLParser, didStartElement element: String, namespaceURI: String?, qualifiedName: String?, attributes: [String: String] = [:]) {
-        currentElement = element
         currentText = ""
 
         if element == "item" {
@@ -75,42 +60,34 @@ extension RSSParser: XMLParserDelegate {
 
         if let episode = currentEpisode {
             switch element {
-            case "title":           episode.title = text
-            case "description":     episode.description = text.strippingHTML
-            case "guid":            episode.guid = text
-            case "pubDate":         episode.pubDate = DateFormatter.rss.date(from: text)
-            case "itunes:duration": episode.duration = parseDuration(text)
-            case "itunes:author":   episode.author = text
-            case "itunes:season":   episode.season = Int(text)
-            case "itunes:episode":  episode.episodeNumber = Int(text)
+            case "title":              episode.title = text
+            case "description":        episode.description = text.strippingHTML
+            case "guid":               episode.guid = text
+            case "pubDate":            episode.pubDate = DateFormatter.rss.date(from: text)
+            case "itunes:duration":    episode.duration = parseDuration(text)
+            case "itunes:author":      episode.author = text
+            case "itunes:season":      episode.season = Int(text)
+            case "itunes:episode":     episode.episodeNumber = Int(text)
             case "itunes:episodeType": episode.episodeType = EpisodeType(rawValue: text) ?? .full
-            case "itunes:explicit": episode.isExplicit = text == "true"
+            case "itunes:explicit":    episode.isExplicit = text == "true"
             case "item":
-                if let built = episode.build() {
-                    episodes.append(built)
-                }
+                if let built = episode.build() { episodes.append(built) }
                 currentEpisode = nil
             default: break
             }
         } else {
             switch element {
-            case "title":           podcastBuilder.title = text
-            case "link":            podcastBuilder.link = URL(string: text)
-            case "language":        podcastBuilder.language = text
-            case "description":     podcastBuilder.description = text.strippingHTML
-            case "itunes:author":   podcastBuilder.author = text
-            case "itunes:explicit": podcastBuilder.isExplicit = text == "true"
-            case "itunes:category": podcastBuilder.categoryName = text
-            case "channel":
-                podcast = podcastBuilder.build(episodes: episodes)
+            case "title":            podcastBuilder.title = text
+            case "link":             podcastBuilder.link = URL(string: text)
+            case "language":         podcastBuilder.language = text
+            case "description":      podcastBuilder.description = text.strippingHTML
+            case "itunes:author":    podcastBuilder.author = text
+            case "itunes:explicit":  podcastBuilder.isExplicit = text == "true"
+            case "itunes:category":  podcastBuilder.categoryName = text
+            case "channel":          podcast = podcastBuilder.build(episodes: episodes)
             default: break
             }
         }
-    }
-
-    private var podcastBuilder: PodcastBuilder {
-        if _podcastBuilder == nil { _podcastBuilder = PodcastBuilder() }
-        return _podcastBuilder!
     }
 }
 

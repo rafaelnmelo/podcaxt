@@ -2,14 +2,13 @@ import Foundation
 
 extension String {
     var strippingHTML: String {
-        guard let data = data(using: .utf8),
-              let attributed = try? NSAttributedString(
-                data: data,
-                options: [.documentType: NSAttributedString.DocumentType.html,
-                          .characterEncoding: NSUTF8StringEncoding],
-                documentAttributes: nil
-              )
-        else { return self }
-        return attributed.string
+        replacing(#/<[^>]+>/#, with: "")
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&#39;", with: "'")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

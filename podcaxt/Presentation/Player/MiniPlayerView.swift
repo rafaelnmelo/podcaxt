@@ -41,8 +41,7 @@ struct MiniPlayerView: View {
             }
         }
         .task(id: viewModel.currentEpisode?.id) {
-            guard let imageURL = viewModel.currentEpisode?.imageURL else { return }
-            await imageLoader.load(from: imageURL)
+            await imageLoader.load(from: viewModel.currentEpisode?.imageURL)
         }
     }
 }

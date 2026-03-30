@@ -1,4 +1,5 @@
 import Foundation
+import CryptoKit
 
 protocol ImageCaching: Actor {
     func cachedData(for url: URL) -> Data?
@@ -28,11 +29,12 @@ actor ImageCache: ImageCaching {
     func cachedData(for url: URL) -> Data? {
         let key = url.absoluteString as NSString
 
-        if let cached = memory.object(forKey: key) as? Data {
-            return cached
+        if let cached = memory.object(forKey: key) as NSData?,
+           let data = cached as Data? {
+            return cached as Data
         }
 
-        let filePath = diskURL.appendingPathComponent(url.absoluteString.hash.description)
+        let filePath = diskURL.appendingPathComponent(cacheKey(for: url))
         if let data = try? Data(contentsOf: filePath) {
             memory.setObject(data as NSData, forKey: key)
             return data
@@ -48,7 +50,7 @@ actor ImageCache: ImageCaching {
     func cache(_ data: Data, for url: URL) {
         let key = url.absoluteString as NSString
         memory.setObject(data as NSData, forKey: key)
-        let filePath = diskURL.appendingPathComponent(url.absoluteString.hash.description)
+        let filePath = diskURL.appendingPathComponent(cacheKey(for: url))
         do {
             try data.write(to: filePath)
         } catch {
@@ -69,5 +71,10 @@ actor ImageCache: ImageCaching {
         try FileManager.default.removeItem(at: diskURL)
         try FileManager.default.createDirectory(at: diskURL, withIntermediateDirectories: true)
         memory.removeAllObjects()
+    }
+
+    private func cacheKey(for url: URL) -> String {
+        SHA256.hash(data: Data(url.absoluteString.utf8))
+            .compactMap { String(format: "%02x", $0) }.joined()
     }
 }

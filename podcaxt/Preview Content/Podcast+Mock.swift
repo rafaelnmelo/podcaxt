@@ -14,6 +14,10 @@ extension Podcast {
     )
 }
 
+extension RSSFeedURL {
+    static let mock = RSSFeedURL(url: URL(string: "https://feeds.megaphone.fm/lacotorrisa")!)
+}
+
 extension Episode {
     static let mocks: [Episode] = [
         Episode(
