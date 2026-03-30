@@ -40,8 +40,10 @@ private extension RSSInputView {
     var historySection: some View {
         Section {
             ForEach(viewModel.history) { feedURL in
-                Button(feedURL.url.absoluteString) {
+                Button {
                     Task { await viewModel.select(feedURL) }
+                } label: {
+                    PodcastHistoryRowView(feedURL: feedURL, viewModel: viewModel)
                 }
                 .foregroundStyle(.primary)
             }

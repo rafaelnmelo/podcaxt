@@ -18,13 +18,19 @@ final class RSSInputViewModel: ObservableObject {
 
     private let rssService: any RSSFetching
     private let persistence: any FeedHistoryPersisting
+    private let rssCache: any RSSCaching
+    private let parser: any RSSParsing
 
     init(
         rssService: any RSSFetching = RSSService.shared,
-        persistence: any FeedHistoryPersisting = PersistenceService.shared
+        persistence: any FeedHistoryPersisting = PersistenceService.shared,
+        rssCache: any RSSCaching = RSSCache.shared,
+        parser: any RSSParsing = RSSParser()
     ) {
         self.rssService = rssService
         self.persistence = persistence
+        self.rssCache = rssCache
+        self.parser = parser
     }
 
     /// Validates the current `urlText`, fetches the podcast and saves the URL to history.
@@ -49,6 +55,12 @@ final class RSSInputViewModel: ObservableObject {
     /// Loads the URL history from persistence.
     func loadHistory() {
         reloadHistory()
+    }
+
+    /// Returns the cached `Podcast` for a given feed URL without hitting the network.
+    func cachedPodcast(for url: URL) async -> Podcast? {
+        guard let data = await rssCache.cachedData(for: url) else { return nil }
+        return try? parser.parse(data)
     }
 
     /// Selects a URL from history, populating `urlText` and triggering fetch.
