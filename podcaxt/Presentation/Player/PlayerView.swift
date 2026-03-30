@@ -3,6 +3,7 @@ import SwiftUI
 struct PlayerView: View {
     @EnvironmentObject private var viewModel: PlayerViewModel
     @StateObject private var imageLoader = ImageLoader()
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(spacing: 32) {
@@ -15,6 +16,13 @@ struct PlayerView: View {
         }
         .padding(.horizontal, 32)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "chevron.down")
+                }
+            }
+        }
         .task(id: viewModel.currentEpisode?.id) {
             guard let imageURL = viewModel.currentEpisode?.imageURL else { return }
             await imageLoader.load(from: imageURL)
