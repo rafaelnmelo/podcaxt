@@ -22,20 +22,20 @@ final class RSSInputViewModel: ObservableObject {
     private let rssService: any RSSFetching
     private let persistence: any FeedHistoryPersisting
     private let rssCache: any RSSCaching
-    private let imageCache: any ImageCaching
+    private let imageService: any ImageFetching
     private let parser: any RSSParsing
 
     init(
         rssService: any RSSFetching = RSSService.shared,
         persistence: any FeedHistoryPersisting = PersistenceService.shared,
         rssCache: any RSSCaching = RSSCache.shared,
-        imageCache: any ImageCaching = ImageCache.shared,
+        imageService: any ImageFetching = ImageService.shared,
         parser: any RSSParsing = RSSParser()
     ) {
         self.rssService = rssService
         self.persistence = persistence
         self.rssCache = rssCache
-        self.imageCache = imageCache
+        self.imageService = imageService
         self.parser = parser
     }
 
@@ -62,14 +62,6 @@ final class RSSInputViewModel: ObservableObject {
     func loadHistory() {
         reloadHistory()
         Task { await resolveMetadata() }
-    }
-
-    /// Returns the cached `Podcast` for a given feed URL without hitting the network.
-    func cachedPodcast(for url: URL) async -> Podcast? {
-        guard let data = await rssCache.cachedData(for: url) else { return nil }
-        return await Task.detached { [parser] in
-            try? parser.parse(data)
-        }.value
     }
 
     /// Selects a URL from history, populating `urlText` and triggering fetch.
@@ -103,12 +95,25 @@ private extension RSSInputViewModel {
     func resolveMetadata() async {
         for feedURL in history {
             guard historyTitles[feedURL.url] == nil else { continue }
-            guard let podcast = await cachedPodcast(for: feedURL.url) else { continue }
-            historyTitles[feedURL.url] = podcast.title
-            if let data = await imageCache.cachedData(for: podcast.imageURL),
+            guard let metadata = await resolvedMetadata(for: feedURL.url) else { continue }
+            historyTitles[feedURL.url] = metadata.title
+            if let data = try? await imageService.fetchImage(from: metadata.imageURL),
                let uiImage = UIImage(data: data) {
                 historyImages[feedURL.url] = Image(uiImage: uiImage)
             }
         }
+    }
+
+    /// Returns metadata from `.meta` cache if available, otherwise parses the XML cache as fallback
+    /// and persists the metadata for future calls.
+    func resolvedMetadata(for url: URL) async -> PodcastMetadata? {
+        if let metadata = await rssCache.cachedMetadata(for: url) { return metadata }
+        guard let data = await rssCache.cachedData(for: url),
+              let podcast = await Task.detached(operation: { [parser] in 
+                  try? parser.parse(data) }).value
+        else { return nil }
+        let metadata = PodcastMetadata(title: podcast.title, imageURL: podcast.imageURL)
+        try? await rssCache.cacheMetadata(metadata, for: url)
+        return metadata
     }
 }

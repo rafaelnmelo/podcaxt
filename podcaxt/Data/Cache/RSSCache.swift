@@ -1,9 +1,16 @@
 import Foundation
 import CryptoKit
 
+struct PodcastMetadata: Codable {
+    let title: String
+    let imageURL: URL
+}
+
 protocol RSSCaching: Actor {
     func cachedData(for url: URL) -> Data?
     func cache(_ data: Data, for url: URL) throws
+    func cachedMetadata(for url: URL) -> PodcastMetadata?
+    func cacheMetadata(_ metadata: PodcastMetadata, for url: URL) throws
     func invalidateCache(for url: URL) throws
     func clearCache() throws
 }
@@ -33,10 +40,22 @@ actor RSSCache: RSSCaching {
         try data.write(to: cacheFile(for: url))
     }
 
+    /// Returns cached `PodcastMetadata` for the given URL, or `nil` if not found.
+    func cachedMetadata(for url: URL) -> PodcastMetadata? {
+        guard let data = try? Data(contentsOf: metadataFile(for: url)) else { return nil }
+        return try? JSONDecoder().decode(PodcastMetadata.self, from: data)
+    }
+
+    /// Writes `PodcastMetadata` to disk for the given URL.
+    func cacheMetadata(_ metadata: PodcastMetadata, for url: URL) throws {
+        try JSONEncoder().encode(metadata).write(to: metadataFile(for: url))
+    }
+
     /// Removes the cached entry for a specific feed URL.
     /// - Throws: `FileManager` error if the file cannot be removed.
     func invalidateCache(for url: URL) throws {
         try FileManager.default.removeItem(at: cacheFile(for: url))
+        try? FileManager.default.removeItem(at: metadataFile(for: url))
     }
 
     /// Removes all cached RSS feed data and recreates the empty cache directory.
@@ -46,9 +65,16 @@ actor RSSCache: RSSCaching {
         try FileManager.default.createDirectory(at: diskURL, withIntermediateDirectories: true)
     }
 
+    private func metadataFile(for url: URL) -> URL {
+        diskURL.appendingPathComponent(hash(for: url) + ".meta")
+    }
+
     private func cacheFile(for url: URL) -> URL {
-        let hash = SHA256.hash(data: Data(url.absoluteString.utf8))
+        return diskURL.appendingPathComponent(hash(for: url))
+    }
+
+    private func hash(for url: URL) -> String {
+        SHA256.hash(data: Data(url.absoluteString.utf8))
             .compactMap { String(format: "%02x", $0) }.joined()
-        return diskURL.appendingPathComponent(hash)
     }
 }

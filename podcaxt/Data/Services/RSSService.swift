@@ -31,9 +31,11 @@ final class RSSService: RSSFetching {
 
         let (data, _) = try await URLSession.shared.debugData(from: url)
         try? await cache.cache(data, for: url)
-        return try await Task.detached { [parser] in
+        let podcast = try await Task.detached { [parser] in
             try parser.parse(data)
         }.value
+        try? await cache.cacheMetadata(PodcastMetadata(title: podcast.title, imageURL: podcast.imageURL), for: url)
+        return podcast
     }
 
     /// Removes the cached data for a specific feed URL.
