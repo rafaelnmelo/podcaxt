@@ -76,7 +76,7 @@ extension RSSParser: XMLParserDelegate {
         if let episode = currentEpisode {
             switch element {
             case "title":           episode.title = text
-            case "description":     episode.description = text
+            case "description":     episode.description = text.strippingHTML
             case "guid":            episode.guid = text
             case "pubDate":         episode.pubDate = DateFormatter.rss.date(from: text)
             case "itunes:duration": episode.duration = parseDuration(text)
@@ -97,7 +97,7 @@ extension RSSParser: XMLParserDelegate {
             case "title":           podcastBuilder.title = text
             case "link":            podcastBuilder.link = URL(string: text)
             case "language":        podcastBuilder.language = text
-            case "description":     podcastBuilder.description = text
+            case "description":     podcastBuilder.description = text.strippingHTML
             case "itunes:author":   podcastBuilder.author = text
             case "itunes:explicit": podcastBuilder.isExplicit = text == "true"
             case "itunes:category": podcastBuilder.categoryName = text

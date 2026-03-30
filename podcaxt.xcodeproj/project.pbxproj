@@ -22,6 +22,7 @@
 		756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */; };
 		756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */; };
 		75B309492F7A9EE3008D2D48 /* PodcastHistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */; };
+		75B3094F2F7AAFFC008D2D48 /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */; };
 		75B547652F780D630061301C /* RSSInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547642F780D630061301C /* RSSInputView.swift */; };
 		75B547672F781BAB0061301C /* URLSession+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547662F781BAB0061301C /* URLSession+Debug.swift */; };
 		75B5476A2F7822AF0061301C /* PodcastDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547682F7822AF0061301C /* PodcastDetailViewModel.swift */; };
@@ -74,6 +75,7 @@
 		756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
 		756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSService.swift; sourceTree = "<group>"; };
 		75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastHistoryRowView.swift; sourceTree = "<group>"; };
+		75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		75B547642F780D630061301C /* RSSInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSInputView.swift; sourceTree = "<group>"; };
 		75B547662F781BAB0061301C /* URLSession+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Debug.swift"; sourceTree = "<group>"; };
 		75B547682F7822AF0061301C /* PodcastDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastDetailViewModel.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		75F3FB4E2F77633800FEC5C7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */,
 				75B547722F7860510061301C /* TimeInterval+Formatting.swift */,
 				75B547662F781BAB0061301C /* URLSession+Debug.swift */,
 				75F3FB4D2F77633800FEC5C7 /* URL+RSS.swift */,
@@ -446,6 +449,7 @@
 				75B547752F7866E50061301C /* EpisodeRowView.swift in Sources */,
 				756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */,
 				75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */,
+				75B3094F2F7AAFFC008D2D48 /* String+HTML.swift in Sources */,
 				756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */,
 				75B547672F781BAB0061301C /* URLSession+Debug.swift in Sources */,
 				75F3FB4C2F7761B900FEC5C7 /* RSSInputViewModel.swift in Sources */,
