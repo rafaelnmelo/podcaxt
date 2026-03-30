@@ -1,11 +1,8 @@
 import SwiftUI
 
 struct PlayerView: View {
-    @StateObject private var viewModel = PlayerViewModel()
+    @EnvironmentObject private var viewModel: PlayerViewModel
     @StateObject private var imageLoader = ImageLoader()
-
-    let episode: Episode
-    let queue: [Episode]
 
     var body: some View {
         VStack(spacing: 32) {
@@ -18,11 +15,9 @@ struct PlayerView: View {
         }
         .padding(.horizontal, 32)
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            viewModel.load(queue: queue, startingAt: episode)
-            if let imageURL = episode.imageURL {
-                await imageLoader.load(from: imageURL)
-            }
+        .task(id: viewModel.currentEpisode?.id) {
+            guard let imageURL = viewModel.currentEpisode?.imageURL else { return }
+            await imageLoader.load(from: imageURL)
         }
     }
 }
@@ -51,7 +46,7 @@ private extension PlayerView {
 
     var episodeInfo: some View {
         VStack(spacing: 6) {
-            Text(viewModel.currentEpisode?.title ?? episode.title)
+            Text(viewModel.currentEpisode?.title ?? "")
                 .font(.title3)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
@@ -122,6 +117,7 @@ private extension PlayerView {
 
 #Preview {
     NavigationStack {
-        PlayerView(episode: Episode.mocks[0], queue: Episode.mocks)
+        PlayerView()
+            .environmentObject(PlayerViewModel())
     }
 }

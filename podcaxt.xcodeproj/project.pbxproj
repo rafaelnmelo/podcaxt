@@ -23,6 +23,7 @@
 		756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */; };
 		75B309492F7A9EE3008D2D48 /* PodcastHistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */; };
 		75B3094F2F7AAFFC008D2D48 /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */; };
+		75B309512F7AB4BF008D2D48 /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B309502F7AB4BF008D2D48 /* MiniPlayerView.swift */; };
 		75B547652F780D630061301C /* RSSInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547642F780D630061301C /* RSSInputView.swift */; };
 		75B547672F781BAB0061301C /* URLSession+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547662F781BAB0061301C /* URLSession+Debug.swift */; };
 		75B5476A2F7822AF0061301C /* PodcastDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B547682F7822AF0061301C /* PodcastDetailViewModel.swift */; };
@@ -76,6 +77,7 @@
 		756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSService.swift; sourceTree = "<group>"; };
 		75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastHistoryRowView.swift; sourceTree = "<group>"; };
 		75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
+		75B309502F7AB4BF008D2D48 /* MiniPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 		75B547642F780D630061301C /* RSSInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSInputView.swift; sourceTree = "<group>"; };
 		75B547662F781BAB0061301C /* URLSession+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Debug.swift"; sourceTree = "<group>"; };
 		75B547682F7822AF0061301C /* PodcastDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastDetailViewModel.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 		75B547772F7872980061301C /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				75B309502F7AB4BF008D2D48 /* MiniPlayerView.swift */,
 				75BF3BA22F79EDEE004B0100 /* PlayerView.swift */,
 				75B547762F7872980061301C /* PlayerViewModel.swift */,
 			);
@@ -442,6 +445,7 @@
 				756EADF12F75B63600C3E9B2 /* RSSFeedURL.swift in Sources */,
 				75B547732F7860510061301C /* TimeInterval+Formatting.swift in Sources */,
 				756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */,
+				75B309512F7AB4BF008D2D48 /* MiniPlayerView.swift in Sources */,
 				75B547712F78435A0061301C /* Podcast+Mock.swift in Sources */,
 				75F3FB502F77633800FEC5C7 /* URL+RSS.swift in Sources */,
 				75B5476F2F7842B10061301C /* PodcastDetailView.swift in Sources */,

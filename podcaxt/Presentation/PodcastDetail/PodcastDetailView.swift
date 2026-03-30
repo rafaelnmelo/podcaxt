@@ -3,7 +3,7 @@ import SwiftUI
 struct PodcastDetailView: View {
     @StateObject private var viewModel: PodcastDetailViewModel
     @StateObject private var imageLoader = ImageLoader()
-    @State private var selectedEpisode: Episode?
+    @EnvironmentObject private var playerViewModel: PlayerViewModel
 
     init(podcast: Podcast) {
         _viewModel = StateObject(wrappedValue: PodcastDetailViewModel(podcast: podcast))
@@ -19,9 +19,6 @@ struct PodcastDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .refreshable { await viewModel.refresh() }
         .task { await imageLoader.load(from: viewModel.podcast.imageURL) }
-        .navigationDestination(item: $selectedEpisode) { episode in
-                PlayerView(episode: episode, queue: viewModel.podcast.episodes)
-            }
     }
 }
 
@@ -51,7 +48,9 @@ private extension PodcastDetailView {
                     duration: episode.duration?.formattedDuration
                 )
                 .contentShape(Rectangle())
-                .onTapGesture { selectedEpisode = episode }
+                .onTapGesture {
+                    playerViewModel.load(queue: viewModel.podcast.episodes, startingAt: episode)
+                }
             }
         } header: {
             episodesSectionHeader
