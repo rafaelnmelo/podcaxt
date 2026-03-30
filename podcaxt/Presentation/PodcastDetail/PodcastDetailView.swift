@@ -20,8 +20,8 @@ struct PodcastDetailView: View {
         .refreshable { await viewModel.refresh() }
         .task { await imageLoader.load(from: viewModel.podcast.imageURL) }
         .navigationDestination(item: $selectedEpisode) { episode in
-            Text(episode.title) // placeholder para PlayerView
-        }
+                PlayerView(episode: episode, queue: viewModel.podcast.episodes)
+            }
     }
 }
 
