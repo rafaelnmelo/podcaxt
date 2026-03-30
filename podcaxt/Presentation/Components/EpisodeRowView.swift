@@ -4,6 +4,11 @@ struct EpisodeRowView: View {
     let episode: Episode
     let duration: String?
 
+    @EnvironmentObject private var playerViewModel: PlayerViewModel
+
+    private var isPlaying: Bool { playerViewModel.isPlaying && playerViewModel.currentEpisode == episode }
+    private var isActive: Bool { playerViewModel.currentEpisode == episode }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             titleRow
@@ -26,9 +31,10 @@ private extension EpisodeRowView {
 
             Spacer()
 
-            Image(systemName: "play.circle")
-                .foregroundStyle(.tint)
+            Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                .foregroundStyle(isActive ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
                 .font(.title2)
+                .animation(.easeInOut(duration: 0.2), value: isPlaying)
         }
     }
 
@@ -75,4 +81,5 @@ private extension EpisodeRowView {
 #Preview {
     EpisodeRowView(episode: Episode.mocks[0], duration: Episode.mocks[0].duration?.formattedDuration)
         .padding()
+        .environmentObject(PlayerViewModel())
 }

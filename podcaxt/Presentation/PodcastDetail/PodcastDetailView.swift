@@ -49,7 +49,11 @@ private extension PodcastDetailView {
                 )
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    playerViewModel.load(queue: viewModel.podcast.episodes, startingAt: episode)
+                    if playerViewModel.currentEpisode == episode {
+                        playerViewModel.togglePlayPause()
+                    } else {
+                        playerViewModel.load(queue: viewModel.podcast.episodes, startingAt: episode)
+                    }
                 }
             }
         } header: {
@@ -111,5 +115,6 @@ private extension PodcastDetailView {
 #Preview {
     NavigationStack {
         PodcastDetailView(podcast: .mock)
+            .environmentObject(PlayerViewModel())
     }
 }
