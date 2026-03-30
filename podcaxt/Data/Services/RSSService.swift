@@ -18,24 +18,14 @@ final class RSSService: RSSFetching {
     }
 
     /// Returns a parsed `Podcast` for the given RSS feed URL.
-    /// Lookup order: cache → network.
-    /// When fetched from network, raw data is stored in cache before parsing.
+    /// Lookup order: cache → network. Network responses are cached before parsing.
     /// - Parameter url: RSS feed URL.
     /// - Returns: Parsed `Podcast` with its episodes.
     func fetchPodcast(from url: URL) async throws -> Podcast {
         if let cached = await cache.cachedData(for: url) {
-            return try await Task.detached { [parser] in
-                try parser.parse(cached)
-            }.value
+            return try await parse(cached)
         }
-
-        let (data, _) = try await URLSession.shared.debugData(from: url)
-        try? await cache.cache(data, for: url)
-        let podcast = try await Task.detached { [parser] in
-            try parser.parse(data)
-        }.value
-        try? await cache.cacheMetadata(PodcastMetadata(title: podcast.title, imageURL: podcast.imageURL), for: url)
-        return podcast
+        return try await fetchAndCache(url)
     }
 
     /// Removes the cached data for a specific feed URL.
@@ -47,5 +37,23 @@ final class RSSService: RSSFetching {
     /// Removes all cached RSS feed data.
     func clearCache() async throws {
         try await cache.clearCache()
+    }
+}
+
+// MARK: - Private
+
+private extension RSSService {
+    /// Parses raw RSS `Data` off the main thread.
+    func parse(_ data: Data) async throws -> Podcast {
+        try await Task.detached { [parser] in try parser.parse(data) }.value
+    }
+
+    /// Downloads the feed, writes it to cache, parses it and stores the metadata.
+    func fetchAndCache(_ url: URL) async throws -> Podcast {
+        let (data, _) = try await URLSession.shared.debugData(from: url)
+        try? await cache.cache(data, for: url)
+        let podcast = try await parse(data)
+        try? await cache.cacheMetadata(PodcastMetadata(title: podcast.title, imageURL: podcast.imageURL), for: url)
+        return podcast
     }
 }

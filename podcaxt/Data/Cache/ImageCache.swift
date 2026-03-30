@@ -28,19 +28,10 @@ actor ImageCache: ImageCaching {
     /// - Parameter url: Remote URL used as cache key.
     func cachedData(for url: URL) -> Data? {
         let key = url.absoluteString as NSString
-
-        if let cached = memory.object(forKey: key) as NSData?,
-           let data = cached as Data? {
-            return cached as Data
-        }
-
-        let filePath = diskURL.appendingPathComponent(cacheKey(for: url))
-        if let data = try? Data(contentsOf: filePath) {
-            memory.setObject(data as NSData, forKey: key)
-            return data
-        }
-
-        return nil
+        if let data = memory.object(forKey: key) as Data? { return data }
+        guard let data = try? Data(contentsOf: diskURL.appendingPathComponent(cacheKey(for: url))) else { return nil }
+        memory.setObject(data as NSData, forKey: key)
+        return data
     }
 
     /// Stores image `Data` in both memory and disk cache.
@@ -50,9 +41,8 @@ actor ImageCache: ImageCaching {
     func cache(_ data: Data, for url: URL) {
         let key = url.absoluteString as NSString
         memory.setObject(data as NSData, forKey: key)
-        let filePath = diskURL.appendingPathComponent(cacheKey(for: url))
         do {
-            try data.write(to: filePath)
+            try data.write(to: diskURL.appendingPathComponent(cacheKey(for: url)))
         } catch {
             print("[ImageCache] failed to write to disk: \(error)")
         }

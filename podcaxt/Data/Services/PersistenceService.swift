@@ -32,22 +32,28 @@ final class PersistenceService: FeedHistoryPersisting {
     func saveURL(_ url: URL) {
         var history = fetchHistory().filter { $0.url != url }
         history.insert(RSSFeedURL(url: url), at: 0)
-        if let data = try? JSONEncoder().encode(history) {
-            defaults.set(data, forKey: key)
-        }
+        persist(history)
     }
 
     /// Removes a specific URL from history.
     /// - Parameter url: RSS feed URL to remove.
     func removeURL(_ url: URL) {
-        let history = fetchHistory().filter { $0.url != url }
-        if let data = try? JSONEncoder().encode(history) {
-            defaults.set(data, forKey: key)
-        }
+        persist(fetchHistory().filter { $0.url != url })
     }
 
     /// Clears the entire URL history from UserDefaults.
     func clearHistory() {
         defaults.removeObject(forKey: key)
+    }
+}
+
+// MARK: - Private
+
+private extension PersistenceService {
+    /// Encodes and writes the given history array to UserDefaults.
+    func persist(_ history: [RSSFeedURL]) {
+        if let data = try? JSONEncoder().encode(history) {
+            defaults.set(data, forKey: key)
+        }
     }
 }

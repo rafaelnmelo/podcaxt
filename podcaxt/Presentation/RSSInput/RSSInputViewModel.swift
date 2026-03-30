@@ -88,10 +88,13 @@ final class RSSInputViewModel: ObservableObject {
 // MARK: - Private
 
 private extension RSSInputViewModel {
+    /// Reloads history from persistence into the `history` published property.
     func reloadHistory() {
         history = persistence.fetchHistory()
     }
 
+    /// Resolves title and cover image for each history entry that hasn't been loaded yet.
+    /// Reads from `.meta` cache when available; falls back to XML parse otherwise.
     func resolveMetadata() async {
         for feedURL in history {
             guard historyTitles[feedURL.url] == nil else { continue }
