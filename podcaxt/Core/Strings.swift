@@ -14,4 +14,9 @@ enum Strings {
     enum PodcastDetail {
         static func episodesHeader(_ count: Int) -> String { "\(count) Episodes" }
     }
+
+    enum Tab {
+        static let search = "Buscar"
+        static let settings = "Configurações"
+    }
 }

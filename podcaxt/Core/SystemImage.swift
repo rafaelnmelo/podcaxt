@@ -7,4 +7,6 @@ enum SystemImage {
     static let pauseCircle = "pause.circle.fill"
     static let forward = "forward.fill"
     static let backward = "backward.fill"
+    static let magnifyingglass = "magnifyingglass"
+    static let gearshape = "gearshape"
 }

@@ -38,6 +38,8 @@
 		75BF3BA32F79EDEE004B0100 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BF3BA22F79EDEE004B0100 /* PlayerView.swift */; };
 		75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC762F768CC70040CB75 /* PersistenceService.swift */; };
 		75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */; };
+		75C8982C2F7BEF04005D67F5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8982A2F7BEF04005D67F5 /* SettingsView.swift */; };
+		75C8982E2F7BEF1A005D67F5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8982D2F7BEF1A005D67F5 /* AppCoordinator.swift */; };
 		75F3FB4C2F7761B900FEC5C7 /* RSSInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FB4A2F7761B900FEC5C7 /* RSSInputViewModel.swift */; };
 		75F3FB502F77633800FEC5C7 /* URL+RSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FB4D2F77633800FEC5C7 /* URL+RSS.swift */; };
 /* End PBXBuildFile section */
@@ -94,6 +96,8 @@
 		75BF3BA22F79EDEE004B0100 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		75C2DC762F768CC70040CB75 /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		75C2DC782F76B34F0040CB75 /* AudioPlayerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
+		75C8982A2F7BEF04005D67F5 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		75C8982D2F7BEF1A005D67F5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		75F3FB4A2F7761B900FEC5C7 /* RSSInputViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSInputViewModel.swift; sourceTree = "<group>"; };
 		75F3FB4D2F77633800FEC5C7 /* URL+RSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+RSS.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +190,7 @@
 		756EADE92F75B5DF00C3E9B2 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				75C8982D2F7BEF1A005D67F5 /* AppCoordinator.swift */,
 				756EADBF2F75AA8300C3E9B2 /* podcaxtApp.swift */,
 			);
 			path = App;
@@ -216,6 +221,7 @@
 				75B547772F7872980061301C /* Player */,
 				75B547692F7822AF0061301C /* PodcastDetail */,
 				75F3FB4B2F7761B900FEC5C7 /* RSSInput */,
+				75C8982B2F7BEF04005D67F5 /* Settings */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -284,6 +290,14 @@
 				75B547762F7872980061301C /* PlayerViewModel.swift */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		75C8982B2F7BEF04005D67F5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				75C8982A2F7BEF04005D67F5 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		75F3FB4B2F7761B900FEC5C7 /* RSSInput */ = {
@@ -459,12 +473,14 @@
 				75B547752F7866E50061301C /* EpisodeRowView.swift in Sources */,
 				75A3D7252F7AFBFF008657FF /* Strings.swift in Sources */,
 				756EADFC2F75B89F00C3E9B2 /* ImageCache.swift in Sources */,
+				75C8982E2F7BEF1A005D67F5 /* AppCoordinator.swift in Sources */,
 				75A3D7262F7AFBFF008657FF /* SystemImage.swift in Sources */,
 				75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */,
 				75B3094F2F7AAFFC008D2D48 /* String+HTML.swift in Sources */,
 				756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */,
 				75B547672F781BAB0061301C /* URLSession+Debug.swift in Sources */,
 				75F3FB4C2F7761B900FEC5C7 /* RSSInputViewModel.swift in Sources */,
+				75C8982C2F7BEF04005D67F5 /* SettingsView.swift in Sources */,
 				756EAE0A2F75CFCD00C3E9B2 /* RSSCache.swift in Sources */,
 				75B5476D2F78241A0061301C /* ImageLoader.swift in Sources */,
 				756EADF32F75B63600C3E9B2 /* Episode.swift in Sources */,
