@@ -20,7 +20,7 @@ actor RSSCache: RSSCaching {
 
     private let diskURL: URL = {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("RSSCache", isDirectory: true)
+            .appendingPathComponent(Strings.Cache.rssCacheDirectory, isDirectory: true)
     }()
 
     /// Creates the disk cache directory if needed.
@@ -66,7 +66,7 @@ actor RSSCache: RSSCaching {
     }
 
     private func metadataFile(for url: URL) -> URL {
-        diskURL.appendingPathComponent(hash(for: url) + ".meta")
+        diskURL.appendingPathComponent(hash(for: url) + Strings.Cache.metadataExtension)
     }
 
     private func cacheFile(for url: URL) -> URL {

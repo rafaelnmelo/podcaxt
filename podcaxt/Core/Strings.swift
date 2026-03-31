@@ -1,4 +1,14 @@
 enum Strings {
+    enum Cache {
+        static let imageCacheDirectory = "ImageCache"
+        static let rssCacheDirectory = "RSSCache"
+        static let metadataExtension = ".meta"
+    }
+
+    enum Persistence {
+        static let rssFeedHistoryKey = "rss_feed_history"
+    }
+
     enum App {
         static let title = "Podcaxt"
     }

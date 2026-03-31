@@ -14,7 +14,7 @@ actor ImageCache: ImageCaching {
     private let memory = NSCache<NSString, NSData>()
     private let diskURL: URL = {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("ImageCache", isDirectory: true)
+            .appendingPathComponent(Strings.Cache.imageCacheDirectory, isDirectory: true)
     }()
 
     /// Sets the memory cache limit and creates the disk cache directory if needed.

@@ -10,7 +10,7 @@ protocol FeedHistoryPersisting {
 final class PersistenceService: FeedHistoryPersisting {
     static let shared = PersistenceService()
 
-    private let key = "rss_feed_history"
+    private let key = Strings.Persistence.rssFeedHistoryKey
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
