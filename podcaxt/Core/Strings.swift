@@ -29,4 +29,12 @@ enum Strings {
         static let search = "Buscar"
         static let settings = "Configurações"
     }
+
+    enum Settings {
+        static let navigationTitle = "Configurações"
+        static let storageSection = "Armazenamento"
+        static let cacheLabel = "Cache"
+        static let clearCache = "Limpar Cache"
+        static let calculating = "Calculando..."
+    }
 }

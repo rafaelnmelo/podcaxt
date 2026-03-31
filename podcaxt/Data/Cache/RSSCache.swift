@@ -13,6 +13,7 @@ protocol RSSCaching: Actor {
     func cacheMetadata(_ metadata: PodcastMetadata, for url: URL) throws
     func invalidateCache(for url: URL) throws
     func clearCache() throws
+    func diskCacheSize() -> Int
 }
 
 actor RSSCache: RSSCaching {
@@ -65,14 +66,25 @@ actor RSSCache: RSSCaching {
         try FileManager.default.createDirectory(at: diskURL, withIntermediateDirectories: true)
     }
 
+    /// Returns the total size in bytes of all files stored in the disk cache.
+    func diskCacheSize() -> Int {
+        let files = (try? FileManager.default.contentsOfDirectory(at: diskURL, includingPropertiesForKeys: [.fileSizeKey])) ?? []
+        return files.reduce(0) { sum, url in
+            sum + ((try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0)
+        }
+    }
+
+    /// Returns the file URL for the metadata file associated with the given feed URL.
     private func metadataFile(for url: URL) -> URL {
         diskURL.appendingPathComponent(hash(for: url) + Strings.Cache.metadataExtension)
     }
 
+    /// Returns the file URL for the cached RSS data associated with the given feed URL.
     private func cacheFile(for url: URL) -> URL {
         return diskURL.appendingPathComponent(hash(for: url))
     }
 
+    /// Returns a SHA-256 hex string used as the disk cache filename for the given URL.
     private func hash(for url: URL) -> String {
         SHA256.hash(data: Data(url.absoluteString.utf8))
             .compactMap { String(format: "%02x", $0) }.joined()

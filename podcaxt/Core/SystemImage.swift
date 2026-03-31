@@ -9,4 +9,6 @@ enum SystemImage {
     static let backward = "backward.fill"
     static let magnifyingglass = "magnifyingglass"
     static let gearshape = "gearshape"
+    static let internaldrive = "internaldrive"
+    static let trash = "trash"
 }

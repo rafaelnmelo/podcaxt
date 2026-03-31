@@ -6,6 +6,7 @@ protocol ImageCaching: Actor {
     func cache(_ data: Data, for url: URL)
     func clearMemoryCache()
     func clearDiskCache() throws
+    func diskCacheSize() -> Int
 }
 
 actor ImageCache: ImageCaching {
@@ -63,6 +64,15 @@ actor ImageCache: ImageCaching {
         memory.removeAllObjects()
     }
 
+    /// Returns the total size in bytes of all files stored in the disk cache.
+    func diskCacheSize() -> Int {
+        let files = (try? FileManager.default.contentsOfDirectory(at: diskURL, includingPropertiesForKeys: [.fileSizeKey])) ?? []
+        return files.reduce(0) { sum, url in
+            sum + ((try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0)
+        }
+    }
+
+    /// Returns a SHA-256 hex string used as the disk cache filename for the given URL.
     private func cacheKey(for url: URL) -> String {
         SHA256.hash(data: Data(url.absoluteString.utf8))
             .compactMap { String(format: "%02x", $0) }.joined()
