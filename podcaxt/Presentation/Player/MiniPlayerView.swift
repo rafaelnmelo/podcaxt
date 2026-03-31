@@ -12,7 +12,7 @@ struct MiniPlayerView: View {
                     image.resizable().scaledToFill()
                 } else {
                     Color.secondary.opacity(0.2)
-                        .overlay(Image(systemName: "mic.fill"))
+                        .overlay(Image(systemName: SystemImage.mic))
                 }
             }
             .frame(width: 44, height: 44)
@@ -25,7 +25,7 @@ struct MiniPlayerView: View {
             Spacer()
 
             Button(action: viewModel.togglePlayPause) {
-                Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: viewModel.isPlaying ? SystemImage.pause : SystemImage.play)
                     .font(.title3)
             }
         }

@@ -12,7 +12,7 @@ struct RSSInputView: View {
                     historySection
                 }
             }
-            .navigationTitle("Podcaxt")
+            .navigationTitle(Strings.App.title)
             .task { viewModel.loadHistory() }
             .navigationDestination(item: $navigateToPodcast) { podcast in
                 PodcastDetailView(podcast: podcast)
@@ -60,7 +60,7 @@ private extension RSSInputView {
 
 private extension RSSInputView {
     var urlTextField: some View {
-        TextField("Cole uma URL de feed RSS ...", text: $viewModel.urlText)
+        TextField(Strings.RSSInput.urlPlaceholder, text: $viewModel.urlText)
             .keyboardType(.URL)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
@@ -73,7 +73,7 @@ private extension RSSInputView {
                 if case .loading = viewModel.state {
                     ProgressView()
                 } else {
-                    Text("Carregar Podcast")
+                    Text(Strings.RSSInput.loadButton)
                 }
                 Spacer()
             }
@@ -92,9 +92,9 @@ private extension RSSInputView {
 
     var historySectionHeader: some View {
         HStack {
-            Text("Recente")
+            Text(Strings.RSSInput.recentHeader)
             Spacer()
-            Button("Limpar", action: viewModel.clearHistory)
+            Button(Strings.RSSInput.clearButton, action: viewModel.clearHistory)
                 .font(.caption)
         }
     }

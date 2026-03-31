@@ -19,7 +19,7 @@ struct PlayerView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: { dismiss() }) {
-                    Image(systemName: "chevron.down")
+                    Image(systemName: SystemImage.chevronDown)
                 }
             }
         }
@@ -41,7 +41,7 @@ private extension PlayerView {
             } else {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color.secondary.opacity(0.2))
-                    .overlay(Image(systemName: "mic.fill").font(.system(size: 60)))
+                    .overlay(Image(systemName: SystemImage.mic).font(.system(size: 60)))
             }
         }
         .frame(width: 280, height: 280)
@@ -97,7 +97,7 @@ private extension PlayerView {
 private extension PlayerView {
     var playPauseButton: some View {
         Button(action: viewModel.togglePlayPause) {
-            Image(systemName: viewModel.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+            Image(systemName: viewModel.isPlaying ? SystemImage.pauseCircle : SystemImage.playCircle)
                 .font(.system(size: 72))
                 .foregroundStyle(.primary)
         }
@@ -105,7 +105,7 @@ private extension PlayerView {
 
     var nextButton: some View {
         Button(action: viewModel.nextEpisode) {
-            Image(systemName: "forward.fill")
+            Image(systemName: SystemImage.forward)
                 .font(.title)
                 .foregroundStyle(viewModel.hasNextEpisode ? .primary : .tertiary)
         }
@@ -114,7 +114,7 @@ private extension PlayerView {
 
     var previousButton: some View {
         Button(action: viewModel.previousEpisode) {
-            Image(systemName: "backward.fill")
+            Image(systemName: SystemImage.backward)
                 .font(.title)
                 .foregroundStyle(viewModel.hasPreviousEpisode ? .primary : .tertiary)
         }

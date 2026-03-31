@@ -42,7 +42,7 @@ final class RSSInputViewModel: ObservableObject {
     /// Validates the current `urlText`, fetches the podcast and saves the URL to history.
     func submitURL() async {
         guard let url = URL.rss(from: urlText) else {
-            state = .failure("URL Inválida")
+            state = .failure(Strings.RSSInput.invalidURL)
             return
         }
 

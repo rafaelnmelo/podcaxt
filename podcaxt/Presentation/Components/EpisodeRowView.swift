@@ -31,7 +31,7 @@ private extension EpisodeRowView {
 
             Spacer()
 
-            Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+            Image(systemName: isPlaying ? SystemImage.pauseCircle : SystemImage.playCircle)
                 .foregroundStyle(isActive ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
                 .font(.title2)
                 .animation(.easeInOut(duration: 0.2), value: isPlaying)

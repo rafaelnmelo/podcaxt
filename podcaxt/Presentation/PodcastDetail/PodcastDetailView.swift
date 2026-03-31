@@ -90,7 +90,7 @@ private extension PodcastDetailView {
     }
 
     var episodesSectionHeader: some View {
-        Text("\(viewModel.podcast.episodes.count) Episodes")
+        Text(Strings.PodcastDetail.episodesHeader(viewModel.podcast.episodes.count))
             .font(.headline)
             .foregroundStyle(.primary)
             .padding(.vertical, 4)
@@ -107,7 +107,7 @@ private extension PodcastDetailView {
         } else {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.secondary.opacity(0.2))
-                .overlay(Image(systemName: "mic.fill").font(.largeTitle))
+                .overlay(Image(systemName: SystemImage.mic).font(.largeTitle))
         }
     }
 }
