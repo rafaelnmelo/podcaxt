@@ -9,6 +9,34 @@ struct SettingsView: View {
         }
         .navigationTitle(Strings.Settings.navigationTitle)
         .onAppear { viewModel.loadCacheSize() }
+        .confirmationDialog(
+            Strings.Settings.clearCacheConfirmTitle,
+            isPresented: $viewModel.showConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(Strings.Settings.clearCache, role: .destructive) { viewModel.clearCache() }
+            Button(Strings.General.cancel, role: .cancel) {}
+        } message: {
+            Text(Strings.Settings.clearCacheConfirmMessage)
+        }
+        .alert(resultAlertTitle, isPresented: Binding(
+            get: { viewModel.clearResult != nil },
+            set: { if !$0 { viewModel.clearResult = nil } }
+        )) {
+            Button(Strings.General.ok, role: .cancel) {}
+        } message: {
+            Text(resultAlertMessage)
+        }
+    }
+
+    private var resultAlertTitle: String {
+        if case .failure = viewModel.clearResult { return Strings.Settings.clearCacheFailureTitle }
+        return Strings.Settings.clearCacheSuccessTitle
+    }
+
+    private var resultAlertMessage: String {
+        if case .failure(let message) = viewModel.clearResult { return message }
+        return Strings.Settings.clearCacheSuccessMessage
     }
 
     private var storageSection: some View {
@@ -29,7 +57,7 @@ struct SettingsView: View {
 
     private var clearCacheButton: some View {
         Button(role: .destructive) {
-            viewModel.clearCache()
+            viewModel.showConfirmation = true
         } label: {
             Label(Strings.Settings.clearCache, systemImage: SystemImage.trash)
         }

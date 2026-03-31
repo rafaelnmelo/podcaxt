@@ -1,9 +1,16 @@
 import Foundation
 
+enum CacheClearResult {
+    case success
+    case failure(String)
+}
+
 @MainActor
 final class SettingsViewModel: ObservableObject {
     @Published private(set) var cacheSize: String = Strings.Settings.calculating
     @Published private(set) var isClearing = false
+    @Published var showConfirmation = false
+    @Published var clearResult: CacheClearResult?
 
     /// Fetches the combined disk cache size from image and RSS caches and updates `cacheSize`.
     func loadCacheSize() {
@@ -14,13 +21,18 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
-    /// Clears both image and RSS disk caches and resets `cacheSize` to zero.
+    /// Clears both image and RSS disk caches and updates `cacheSize`.
     func clearCache() {
         isClearing = true
         Task {
-            try? await ImageCache.shared.clearDiskCache()
-            try? await RSSCache.shared.clearCache()
-            cacheSize = ByteCountFormatter.string(fromByteCount: 0, countStyle: .file)
+            do {
+                try await ImageCache.shared.clearDiskCache()
+                try await RSSCache.shared.clearCache()
+                loadCacheSize()
+                clearResult = .success
+            } catch {
+                clearResult = .failure(error.localizedDescription)
+            }
             isClearing = false
         }
     }

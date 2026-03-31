@@ -36,5 +36,15 @@ enum Strings {
         static let cacheLabel = "Cache"
         static let clearCache = "Limpar Cache"
         static let calculating = "Calculando..."
+        static let clearCacheConfirmTitle = "Limpar Cache"
+        static let clearCacheConfirmMessage = "Isso removerá todos os dados de RSS e imagens em cache."
+        static let clearCacheSuccessTitle = "Cache Limpo"
+        static let clearCacheSuccessMessage = "O cache foi removido com sucesso."
+        static let clearCacheFailureTitle = "Erro ao Limpar"
+    }
+
+    enum General {
+        static let ok = "OK"
+        static let cancel = "Cancelar"
     }
 }
