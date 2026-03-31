@@ -5,16 +5,13 @@ struct PlayerView: View {
     @StateObject private var imageLoader = ImageLoader()
     @Environment(\.dismiss) private var dismiss
 
+    private var accent: Color { imageLoader.dominantColor ?? .accentColor }
+
     var body: some View {
-        VStack(spacing: 32) {
-            Spacer()
-            artwork
-            episodeInfo
-            progressSection
-            controls
-            Spacer()
+        ZStack {
+            background
+            content
         }
-        .padding(.horizontal, 32)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -26,6 +23,28 @@ struct PlayerView: View {
         .task(id: viewModel.currentEpisode?.id) {
             await imageLoader.load(from: viewModel.currentEpisode?.imageURL)
         }
+    }
+
+    private var background: some View {
+        LinearGradient(
+            colors: [accent.opacity(0.6), Color(.systemBackground)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .ignoresSafeArea()
+        .animation(.easeInOut(duration: 0.6), value: accent.description)
+    }
+
+    private var content: some View {
+        VStack(spacing: 32) {
+            Spacer()
+            artwork
+            episodeInfo
+            progressSection
+            controls
+            Spacer()
+        }
+        .padding(.horizontal, 32)
     }
 }
 
@@ -46,8 +65,9 @@ private extension PlayerView {
         }
         .frame(width: 280, height: 280)
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(radius: 10)
+        .shadow(color: accent.opacity(viewModel.isPlaying ? 0.7 : 0.2), radius: viewModel.isPlaying ? 32 : 10)
         .scaleEffect(viewModel.isPlaying ? 1 : 0.9)
+        .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: viewModel.isPlaying)
         .animation(.spring(duration: 0.3), value: viewModel.isPlaying)
     }
 
@@ -71,7 +91,7 @@ private extension PlayerView {
                 get: { viewModel.progress },
                 set: { viewModel.seek(to: $0 * viewModel.duration) }
             ))
-            .tint(.primary)
+            .tint(accent)
 
             HStack {
                 Text(viewModel.formattedCurrentTime)

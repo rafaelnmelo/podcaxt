@@ -24,6 +24,7 @@
 		75A2422B2F7C215C00830991 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A242292F7C215C00830991 /* ContentView.swift */; };
 		75A2422C2F7C215C00830991 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A2422A2F7C215C00830991 /* LaunchView.swift */; };
 		75A242302F7C232600830991 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A2422F2F7C232600830991 /* Color+Hex.swift */; };
+		75A242322F7C3D6200830991 /* UIImage+DominantColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A242312F7C3D6200830991 /* UIImage+DominantColor.swift */; };
 		75A3D7252F7AFBFF008657FF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3D7232F7AFBFF008657FF /* Strings.swift */; };
 		75A3D7262F7AFBFF008657FF /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3D7242F7AFBFF008657FF /* SystemImage.swift */; };
 		75B309492F7A9EE3008D2D48 /* PodcastHistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */; };
@@ -86,6 +87,7 @@
 		75A242292F7C215C00830991 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		75A2422A2F7C215C00830991 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		75A2422F2F7C232600830991 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		75A242312F7C3D6200830991 /* UIImage+DominantColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+DominantColor.swift"; sourceTree = "<group>"; };
 		75A3D7232F7AFBFF008657FF /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = podcaxt/Core/Strings.swift; sourceTree = SOURCE_ROOT; };
 		75A3D7242F7AFBFF008657FF /* SystemImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemImage.swift; path = podcaxt/Core/SystemImage.swift; sourceTree = SOURCE_ROOT; };
 		75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastHistoryRowView.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				75A2422F2F7C232600830991 /* Color+Hex.swift */,
 				75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */,
 				75B547722F7860510061301C /* TimeInterval+Formatting.swift */,
+				75A242312F7C3D6200830991 /* UIImage+DominantColor.swift */,
 				75B547662F781BAB0061301C /* URLSession+Debug.swift */,
 				75F3FB4D2F77633800FEC5C7 /* URL+RSS.swift */,
 			);
@@ -504,6 +507,7 @@
 				756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */,
 				756EADC02F75AA8300C3E9B2 /* PodcaxtApp.swift in Sources */,
 				75BF3BA32F79EDEE004B0100 /* PlayerView.swift in Sources */,
+				75A242322F7C3D6200830991 /* UIImage+DominantColor.swift in Sources */,
 				756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */,
 				75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */,
 				75B547782F7872980061301C /* PlayerViewModel.swift in Sources */,
