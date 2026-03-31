@@ -20,7 +20,7 @@ struct LaunchView: View {
 
     private var splash: some View {
         ZStack {
-            Color(hex: 0xFFC300).ignoresSafeArea()
+            Color(hex: 0x007AFF).ignoresSafeArea()
             Image("Launch")
                 .resizable()
                 .scaledToFit()

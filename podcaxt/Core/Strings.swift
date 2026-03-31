@@ -10,7 +10,7 @@ enum Strings {
     }
 
     enum App {
-        static let title = "Podcaxt"
+        static let title = "Buscar"
     }
 
     enum RSSInput {

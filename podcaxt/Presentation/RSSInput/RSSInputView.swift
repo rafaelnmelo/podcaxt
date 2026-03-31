@@ -6,21 +6,38 @@ struct RSSInputView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                inputSection
-                if !viewModel.history.isEmpty {
-                    historySection
-                }
-            }
-            .navigationTitle(Strings.App.title)
-            .navigationDestination(item: $navigateToPodcast) { podcast in
-                PodcastDetailView(podcast: podcast)
+            ZStack {
+                background
+                content
             }
         }
         .onAppear {
             viewModel.onSuccess = { podcast in
                 navigateToPodcast = podcast
             }
+        }
+    }
+
+    private var background: some View {
+        LinearGradient(
+            colors: [Color.accentColor.opacity(0.6), Color(.systemBackground)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .ignoresSafeArea()
+    }
+
+    private var content: some View {
+        List {
+            inputSection
+            if !viewModel.history.isEmpty {
+                historySection
+            }
+        }
+        .scrollContentBackground(.hidden)
+        .navigationTitle(Strings.App.title)
+        .navigationDestination(item: $navigateToPodcast) { podcast in
+            PodcastDetailView(podcast: podcast)
         }
     }
 }
