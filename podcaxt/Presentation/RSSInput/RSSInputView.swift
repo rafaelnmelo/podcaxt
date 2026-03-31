@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RSSInputView: View {
-    @StateObject private var viewModel = RSSInputViewModel()
+    @EnvironmentObject private var viewModel: RSSInputViewModel
     @State private var navigateToPodcast: Podcast?
 
     var body: some View {
@@ -13,7 +13,6 @@ struct RSSInputView: View {
                 }
             }
             .navigationTitle(Strings.App.title)
-            .task { viewModel.loadHistory() }
             .navigationDestination(item: $navigateToPodcast) { podcast in
                 PodcastDetailView(podcast: podcast)
             }

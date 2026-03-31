@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		756EADC02F75AA8300C3E9B2 /* podcaxtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADBF2F75AA8300C3E9B2 /* podcaxtApp.swift */; };
+		756EADC02F75AA8300C3E9B2 /* PodcaxtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADBF2F75AA8300C3E9B2 /* PodcaxtApp.swift */; };
 		756EADC42F75AA8400C3E9B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 756EADC32F75AA8400C3E9B2 /* Assets.xcassets */; };
 		756EADC72F75AA8400C3E9B2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 756EADC62F75AA8400C3E9B2 /* Preview Assets.xcassets */; };
 		756EADD12F75AA8500C3E9B2 /* podcaxtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EADD02F75AA8500C3E9B2 /* podcaxtTests.swift */; };
@@ -21,6 +21,9 @@
 		756EAE0A2F75CFCD00C3E9B2 /* RSSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */; };
 		756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */; };
 		756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */; };
+		75A2422B2F7C215C00830991 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A242292F7C215C00830991 /* ContentView.swift */; };
+		75A2422C2F7C215C00830991 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A2422A2F7C215C00830991 /* LaunchView.swift */; };
+		75A242302F7C232600830991 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A2422F2F7C232600830991 /* Color+Hex.swift */; };
 		75A3D7252F7AFBFF008657FF /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3D7232F7AFBFF008657FF /* Strings.swift */; };
 		75A3D7262F7AFBFF008657FF /* SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3D7242F7AFBFF008657FF /* SystemImage.swift */; };
 		75B309492F7A9EE3008D2D48 /* PodcastHistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */; };
@@ -64,7 +67,7 @@
 
 /* Begin PBXFileReference section */
 		756EADBC2F75AA8300C3E9B2 /* podcaxt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = podcaxt.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		756EADBF2F75AA8300C3E9B2 /* podcaxtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = podcaxtApp.swift; sourceTree = "<group>"; };
+		756EADBF2F75AA8300C3E9B2 /* PodcaxtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcaxtApp.swift; sourceTree = "<group>"; };
 		756EADC32F75AA8400C3E9B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		756EADC62F75AA8400C3E9B2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		756EADCC2F75AA8500C3E9B2 /* podcaxtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = podcaxtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +83,9 @@
 		756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSCache.swift; sourceTree = "<group>"; };
 		756EAE0C2F75CFD400C3E9B2 /* RSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
 		756EAE0D2F75CFD400C3E9B2 /* RSSService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSService.swift; sourceTree = "<group>"; };
+		75A242292F7C215C00830991 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		75A2422A2F7C215C00830991 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		75A2422F2F7C232600830991 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		75A3D7232F7AFBFF008657FF /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Strings.swift; path = podcaxt/Core/Strings.swift; sourceTree = SOURCE_ROOT; };
 		75A3D7242F7AFBFF008657FF /* SystemImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemImage.swift; path = podcaxt/Core/SystemImage.swift; sourceTree = SOURCE_ROOT; };
 		75B309482F7A9EE3008D2D48 /* PodcastHistoryRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodcastHistoryRowView.swift; sourceTree = "<group>"; };
@@ -193,7 +199,9 @@
 			isa = PBXGroup;
 			children = (
 				75C8982D2F7BEF1A005D67F5 /* AppCoordinator.swift */,
-				756EADBF2F75AA8300C3E9B2 /* podcaxtApp.swift */,
+				75A242292F7C215C00830991 /* ContentView.swift */,
+				75A2422A2F7C215C00830991 /* LaunchView.swift */,
+				756EADBF2F75AA8300C3E9B2 /* PodcaxtApp.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -316,6 +324,7 @@
 		75F3FB4E2F77633800FEC5C7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				75A2422F2F7C232600830991 /* Color+Hex.swift */,
 				75B3094E2F7AAFFC008D2D48 /* String+HTML.swift */,
 				75B547722F7860510061301C /* TimeInterval+Formatting.swift */,
 				75B547662F781BAB0061301C /* URLSession+Debug.swift */,
@@ -465,7 +474,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				75B547652F780D630061301C /* RSSInputView.swift in Sources */,
+				75A2422C2F7C215C00830991 /* LaunchView.swift in Sources */,
 				756EADF12F75B63600C3E9B2 /* RSSFeedURL.swift in Sources */,
+				75A2422B2F7C215C00830991 /* ContentView.swift in Sources */,
 				75B547732F7860510061301C /* TimeInterval+Formatting.swift in Sources */,
 				756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */,
 				75B309512F7AB4BF008D2D48 /* MiniPlayerView.swift in Sources */,
@@ -479,6 +490,7 @@
 				75C8982E2F7BEF1A005D67F5 /* AppCoordinator.swift in Sources */,
 				75A3D7262F7AFBFF008657FF /* SystemImage.swift in Sources */,
 				75C2DC772F768CC70040CB75 /* PersistenceService.swift in Sources */,
+				75A242302F7C232600830991 /* Color+Hex.swift in Sources */,
 				75B3094F2F7AAFFC008D2D48 /* String+HTML.swift in Sources */,
 				756EADF22F75B63600C3E9B2 /* Podcast.swift in Sources */,
 				75B547672F781BAB0061301C /* URLSession+Debug.swift in Sources */,
@@ -490,7 +502,7 @@
 				756EADF32F75B63600C3E9B2 /* Episode.swift in Sources */,
 				75B309492F7A9EE3008D2D48 /* PodcastHistoryRowView.swift in Sources */,
 				756EAE102F75CFD400C3E9B2 /* RSSService.swift in Sources */,
-				756EADC02F75AA8300C3E9B2 /* podcaxtApp.swift in Sources */,
+				756EADC02F75AA8300C3E9B2 /* PodcaxtApp.swift in Sources */,
 				75BF3BA32F79EDEE004B0100 /* PlayerView.swift in Sources */,
 				756EAE0F2F75CFD400C3E9B2 /* RSSParser.swift in Sources */,
 				75C2DC792F76B34F0040CB75 /* AudioPlayerService.swift in Sources */,
@@ -655,6 +667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"podcaxt/Preview Content\"";
@@ -683,6 +696,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"podcaxt/Preview Content\"";
