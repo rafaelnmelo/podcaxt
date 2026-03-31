@@ -10,12 +10,15 @@ struct PodcastDetailView: View {
     }
 
     var body: some View {
-        List {
-            headerSection
-            episodesSection
+        ScrollView {
+            LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+                heroHeader
+                podcastInfo
+                    .padding(16)
+                episodesSection
+            }
         }
-        .listStyle(.plain)
-        .navigationTitle(viewModel.podcast.title)
+        .ignoresSafeArea(edges: .top)
         .navigationBarTitleDisplayMode(.inline)
         .refreshable { await viewModel.refresh() }
         .task { await imageLoader.load(from: viewModel.podcast.imageURL) }
@@ -25,19 +28,25 @@ struct PodcastDetailView: View {
 // MARK: - Sections
 
 private extension PodcastDetailView {
-    var headerSection: some View {
-        Section {
-            VStack(alignment: .center, spacing: 16) {
-                coverImage
-                    .frame(width: 160, height: 160)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                podcastInfo
-                podcastDescription
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
+    var heroHeader: some View {
+        GeometryReader { geo in
+            let offset = geo.frame(in: .global).minY
+            let isScrollingUp = offset > 0
+
+            coverImage
+                .frame(width: geo.size.width, height: 320 + (isScrollingUp ? offset : 0))
+                .clipped()
+                .offset(y: isScrollingUp ? -offset : 0)
+                .overlay(alignment: .bottom) {
+                    LinearGradient(
+                        colors: [.clear, Color(.systemBackground)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 80)
+                }
         }
-        .listRowSeparator(.hidden)
+        .frame(height: 320)
     }
 
     var episodesSection: some View {
@@ -47,6 +56,7 @@ private extension PodcastDetailView {
                     episode: episode,
                     duration: episode.duration?.formattedDuration
                 )
+                .padding(.horizontal, 16)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     if playerViewModel.currentEpisode == episode {
@@ -55,6 +65,7 @@ private extension PodcastDetailView {
                         playerViewModel.load(queue: viewModel.podcast.episodes, startingAt: episode)
                     }
                 }
+                Divider().padding(.leading, 16)
             }
         } header: {
             episodesSectionHeader
@@ -79,35 +90,36 @@ private extension PodcastDetailView {
             Text(viewModel.podcast.category.name)
                 .font(.caption)
                 .foregroundStyle(.tertiary)
-        }
-    }
+                .padding(.bottom, 8)
 
-    var podcastDescription: some View {
-        Text(viewModel.podcast.description)
-            .font(.body)
-            .foregroundStyle(.secondary)
-            .multilineTextAlignment(.leading)
+            Text(viewModel.podcast.description)
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.leading)
+        }
+        .frame(maxWidth: .infinity)
     }
 
     var episodesSectionHeader: some View {
         Text(Strings.PodcastDetail.episodesHeader(viewModel.podcast.episodes.count))
             .font(.headline)
             .foregroundStyle(.primary)
-            .padding(.vertical, 4)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(.systemBackground))
     }
 
     @ViewBuilder
     var coverImage: some View {
         if imageLoader.isLoading {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.secondary.opacity(0.2))
+            Color.secondary.opacity(0.2)
                 .overlay(ProgressView())
         } else if let image = imageLoader.image {
             image.resizable().scaledToFill()
         } else {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.secondary.opacity(0.2))
-                .overlay(Image(systemName: SystemImage.mic).font(.largeTitle))
+            Color.secondary.opacity(0.2)
+                .overlay(Image(systemName: SystemImage.mic).font(.system(size: 60)))
         }
     }
 }
