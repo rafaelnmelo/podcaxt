@@ -106,4 +106,5 @@ private extension RSSInputView {
 
 #Preview {
     RSSInputView()
+        .environmentObject(RSSInputViewModel())
 }

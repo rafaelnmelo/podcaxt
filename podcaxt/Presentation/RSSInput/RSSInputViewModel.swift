@@ -45,12 +45,10 @@ final class RSSInputViewModel: ObservableObject {
             state = .failure(Strings.RSSInput.invalidURL)
             return
         }
-
         state = .loading
         do {
             let podcast = try await rssService.fetchPodcast(from: url)
-            persistence.saveURL(url)
-            reloadHistory()
+            saveToHistory(url: url, podcast: podcast)
             state = .success(podcast)
             onSuccess?(podcast)
         } catch {
@@ -93,6 +91,21 @@ private extension RSSInputViewModel {
         history = persistence.fetchHistory()
     }
 
+    /// Saves a URL to persistence, reloads history and resolves metadata from the given podcast.
+    func saveToHistory(url: URL, podcast: Podcast) {
+        persistence.saveURL(url)
+        reloadHistory()
+        historyTitles[url] = podcast.title
+        Task { await resolveImage(from: podcast.imageURL, for: url) }
+    }
+
+    /// Fetches and stores the cover image for a given URL.
+    func resolveImage(from imageURL: URL, for url: URL) async {
+        guard let data = try? await imageService.fetchImage(from: imageURL),
+              let uiImage = UIImage(data: data) else { return }
+        historyImages[url] = Image(uiImage: uiImage)
+    }
+
     /// Resolves title and cover image for each history entry that hasn't been loaded yet.
     /// Reads from `.meta` cache when available; falls back to XML parse otherwise.
     func resolveMetadata() async {
@@ -100,10 +113,7 @@ private extension RSSInputViewModel {
             guard historyTitles[feedURL.url] == nil else { continue }
             guard let metadata = await resolvedMetadata(for: feedURL.url) else { continue }
             historyTitles[feedURL.url] = metadata.title
-            if let data = try? await imageService.fetchImage(from: metadata.imageURL),
-               let uiImage = UIImage(data: data) {
-                historyImages[feedURL.url] = Image(uiImage: uiImage)
-            }
+            await resolveImage(from: metadata.imageURL, for: feedURL.url)
         }
     }
 
