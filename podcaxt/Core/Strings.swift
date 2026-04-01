@@ -42,6 +42,11 @@ enum Strings {
         static let clearCacheSuccessMessage = "O cache foi removido com sucesso."
         static let clearCacheFailureTitle = "Erro ao Limpar"
     }
+    
+    enum Player {
+        static let errorTitle = "Erro de Reprodução"
+        static let streamError = "Não foi possível reproduzir este episódio."
+    }
 
     enum General {
         static let ok = "OK"

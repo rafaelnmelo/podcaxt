@@ -12,6 +12,7 @@ protocol AudioPlaying: AnyObject {
     var currentTimePublisher: AnyPublisher<TimeInterval, Never> { get }
     var durationPublisher: AnyPublisher<TimeInterval, Never> { get }
     var currentEpisodePublisher: AnyPublisher<Episode?, Never> { get }
+    var errorPublisher: AnyPublisher<String, Never> { get }
 
     func load(queue: [Episode], startingAt episode: Episode)
     func play()
@@ -34,10 +35,13 @@ final class AudioPlayerService: AudioPlaying {
     @Published private(set) var currentEpisode: Episode?
     @Published private(set) var queue: [Episode] = []
 
+    private let errorSubject = PassthroughSubject<String, Never>()
+
     var isPlayingPublisher: AnyPublisher<Bool, Never> { $isPlaying.eraseToAnyPublisher() }
     var currentTimePublisher: AnyPublisher<TimeInterval, Never> { $currentTime.eraseToAnyPublisher() }
     var durationPublisher: AnyPublisher<TimeInterval, Never> { $duration.eraseToAnyPublisher() }
     var currentEpisodePublisher: AnyPublisher<Episode?, Never> { $currentEpisode.eraseToAnyPublisher() }
+    var errorPublisher: AnyPublisher<String, Never> { errorSubject.eraseToAnyPublisher() }
 
     private init() {
         setupAudioSession()
@@ -131,6 +135,16 @@ private extension AudioPlayerService {
             .compactMap { $0.isNumeric ? $0.seconds : nil }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in self?.duration = $0 }
+            .store(in: &cancellables)
+
+        item.publisher(for: \.status)
+            .filter { $0 == .failed }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                let message = item.error?.localizedDescription ?? Strings.Player.streamError
+                self?.isPlaying = false
+                self?.errorSubject.send(message)
+            }
             .store(in: &cancellables)
     }
 

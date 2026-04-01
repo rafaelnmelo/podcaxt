@@ -20,6 +20,14 @@ struct PlayerView: View {
                 }
             }
         }
+        .alert(Strings.Player.errorTitle, isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
+            Button(Strings.General.ok, role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
         .task(id: viewModel.currentEpisode?.id) {
             await imageLoader.load(from: viewModel.currentEpisode?.imageURL)
         }

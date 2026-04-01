@@ -7,6 +7,7 @@ final class PlayerViewModel: ObservableObject {
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var currentTime: TimeInterval = 0
     @Published private(set) var duration: TimeInterval = 0
+    @Published var errorMessage: String?
 
     private let player: any AudioPlaying
     private var cancellables = Set<AnyCancellable>()
@@ -99,5 +100,10 @@ private extension PlayerViewModel {
         player.currentEpisodePublisher
             .receive(on: DispatchQueue.main)
             .assign(to: &$currentEpisode)
+
+        player.errorPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.errorMessage = $0 }
+            .store(in: &cancellables)
     }
 }
