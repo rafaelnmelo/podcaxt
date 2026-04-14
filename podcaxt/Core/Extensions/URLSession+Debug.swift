@@ -11,15 +11,16 @@ extension URLSession {
     /// Performs a URLRequest with detailed debug logging for URL, headers, body, response and errors.
     func debugRequest(_ request: URLRequest) async throws -> (Data, URLResponse) {
         let logger = Logger(subsystem: "com.podcaxt.network", category: "URLSession")
+        let requestId = UUID().uuidString.prefix(8)
         
-        logger.logRequest(request)
+        logger.logRequest(request, id: String(requestId))
 
         do {
             let (data, response) = try await data(for: request)
-            logger.logResponse(response, data: data)
+            logger.logResponse(response, data: data, id: String(requestId))
             return (data, response)
         } catch {
-            logger.logError(error)
+            logger.logError(error, id: String(requestId))
             throw error
         }
     }
@@ -28,11 +29,11 @@ extension URLSession {
 // MARK: - Logger Extension
 
 private extension Logger {
-    func logRequest(_ request: URLRequest) {
+    func logRequest(_ request: URLRequest, id: String) {
         #if !DEBUG
         return
         #endif
-        self.debug("🌐 ===== 📤 Request Debug 📤 =====")
+        self.debug("🌐 📤 Request Debug 📤 [\(id)]🏷️")
         self.debug("🟣 URL: \(request.url?.absoluteString ?? "nil")")
         self.debug("🟣 Method: \(request.httpMethod ?? "GET")")
 
@@ -92,11 +93,11 @@ private extension Logger {
         }
     }
 
-    func logResponse(_ response: URLResponse, data: Data) {
+    func logResponse(_ response: URLResponse, data: Data, id: String) {
         #if !DEBUG
         return
         #endif
-        self.debug("🌐 ===== 📥 Response Debug 📥 =====")
+        self.debug("🌐 📥 Response Debug 📥 [\(id)]🏷️")
 
         if let http = response as? HTTPURLResponse {
             self.debug("🟢 Status: \(http.statusCode)")
@@ -111,15 +112,13 @@ private extension Logger {
         } else {
             self.debug("🔹 [binary data]")
         }
-        self.debug("═══════════════════════════════════════")
     }
 
-    func logError(_ error: Error) {
+    func logError(_ error: Error, id: String) {
         #if !DEBUG
         return
         #endif
-        self.debug("🌐 ===== ❌ Error Debug ❌ =====")
+        self.debug("🌐 ❌ Error Debug ❌ [\(id)]🏷️")
         self.debug("🔴 Error: \(error.localizedDescription)")
-        self.debug("═══════════════════════════════════════")
     }
 }
