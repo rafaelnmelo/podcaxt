@@ -1,4 +1,5 @@
 import Foundation
+import os.log
 
 extension URLSession {
     /// Performs a request with detailed debug logging for URL, headers, body, response and errors.
@@ -9,59 +10,61 @@ extension URLSession {
 
     /// Performs a URLRequest with detailed debug logging for URL, headers, body, response and errors.
     func debugRequest(_ request: URLRequest) async throws -> (Data, URLResponse) {
-        #if DEBUG
-        logRequest(request)
-        #endif
+        let logger = Logger(subsystem: "com.podcaxt.network", category: "URLSession")
+        
+        logger.logRequest(request)
 
         do {
             let (data, response) = try await data(for: request)
-
-            #if DEBUG
-            logResponse(response, data: data)
-            #endif
-
+            logger.logResponse(response, data: data)
             return (data, response)
         } catch {
-            #if DEBUG
-            logError(error)
-            #endif
+            logger.logError(error)
             throw error
         }
     }
 }
 
-// MARK: - Private Logging
+// MARK: - Logger Extension
 
-#if DEBUG
-private extension URLSession {
+private extension Logger {
     func logRequest(_ request: URLRequest) {
-        print("\n🌐 ===== 📤 Request Debug 📤 =====")
-        print("🟣 URL: \(request.url?.absoluteString ?? "nil")")
-        print("🟣 Method: \(request.httpMethod ?? "GET")")
+        #if !DEBUG
+        return
+        #endif
+        self.debug("🌐 ===== 📤 Request Debug 📤 =====")
+        self.debug("🟣 URL: \(request.url?.absoluteString ?? "nil")")
+        self.debug("🟣 Method: \(request.httpMethod ?? "GET")")
 
         if let headers = request.allHTTPHeaderFields, !headers.isEmpty {
-            print("🟣 Headers: \(headers.map { "\($0.key): \($0.value)" }.joined(separator: ", "))")
+            self.debug("🟣 Headers: \(headers.map { "\($0.key): \($0.value)" }.joined(separator: ", "))")
         }
 
         if let body = request.httpBody {
-            print("🟣 Body:")
+            self.debug("🟣 Body:")
             logBody(body, contentType: request.value(forHTTPHeaderField: "Content-Type"))
         }
     }
 
     func logBody(_ body: Data, contentType: String?) {
+        #if !DEBUG
+        return
+        #endif
         if let contentType,
            contentType.contains("multipart/form-data"),
            let boundary = contentType.components(separatedBy: "boundary=").last {
             logMultipartBody(body, boundary: boundary)
         } else if let string = String(data: body, encoding: .utf8) {
-            print("🔹 \(string.prefix(500))")
+            self.debug("🔹 \(string.prefix(500))")
         } else {
-            print("🔹 [binary data: \(body.count) bytes]")
+            self.debug("🔹 [binary data: \(body.count) bytes]")
         }
     }
 
     func logMultipartBody(_ body: Data, boundary: String) {
+        #if !DEBUG
+        return
+        #endif
         let parts = String(data: body, encoding: .ascii)?
             .components(separatedBy: "--\(boundary)")
             .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? []
@@ -79,39 +82,44 @@ private extension URLSession {
             let content = components[1...].joined(separator: "\r\n\r\n")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
 
-            print(headers)
+            self.debug("\(headers)")
 
             if components[0].contains("image/jpeg") || components[0].contains("application/octet-stream") {
-                print("🔹 [binary data omitted]")
+                self.debug("🔹 [binary data omitted]")
             } else if !content.isEmpty {
-                print("🔹 Content: \(content.prefix(200))")
+                self.debug("🔹 Content: \(content.prefix(200))")
             }
         }
     }
 
     func logResponse(_ response: URLResponse, data: Data) {
-        print("\n🌐 ===== 📥 Response Debug 📥 =====")
+        #if !DEBUG
+        return
+        #endif
+        self.debug("🌐 ===== 📥 Response Debug 📥 =====")
 
         if let http = response as? HTTPURLResponse {
-            print("🟢 Status: \(http.statusCode)")
+            self.debug("🟢 Status: \(http.statusCode)")
             if !http.allHeaderFields.isEmpty {
-                print("🟢 Headers: \(http.allHeaderFields.map { "\($0.key): \($0.value)" }.joined(separator: ", "))")
+                self.debug("🟢 Headers: \(http.allHeaderFields.map { "\($0.key): \($0.value)" }.joined(separator: ", "))")
             }
         }
 
-        print("🟢 Data (\(data.count) bytes):")
+        self.debug("🟢 Data (\(data.count) bytes):")
         if let string = String(data: data, encoding: .utf8) {
-            print("🔹 \(string.prefix(500))")
+            self.debug("🔹 \(string.prefix(500))")
         } else {
-            print("🔹 [binary data]")
+            self.debug("🔹 [binary data]")
         }
-        print("═══════════════════════════════════════")
+        self.debug("═══════════════════════════════════════")
     }
 
     func logError(_ error: Error) {
-        print("\n🌐 ===== ❌ Error Debug ❌ =====")
-        print("🔴 Error: \(error.localizedDescription)")
-        print("═══════════════════════════════════════")
+        #if !DEBUG
+        return
+        #endif
+        self.debug("🌐 ===== ❌ Error Debug ❌ =====")
+        self.debug("🔴 Error: \(error.localizedDescription)")
+        self.debug("═══════════════════════════════════════")
     }
 }
-#endif
