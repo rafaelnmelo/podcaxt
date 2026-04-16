@@ -39,6 +39,7 @@ struct RSSInputView: View {
         .navigationDestination(item: $navigateToPodcast) { podcast in
             PodcastDetailView(podcast: podcast)
         }
+        .task { viewModel.loadHistory() }
     }
 }
 

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct LaunchView: View {
-    @EnvironmentObject private var rssInputViewModel: RSSInputViewModel
     @State private var ready = false
 
     var body: some View {
@@ -11,7 +10,6 @@ struct LaunchView: View {
         } else {
             splash
                 .task {
-                    rssInputViewModel.loadHistory()
                     try? await Task.sleep(for: .milliseconds(600))
                     withAnimation(.easeInOut(duration: 0.4)) { ready = true }
                 }
