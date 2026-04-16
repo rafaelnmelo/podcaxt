@@ -35,7 +35,7 @@ struct PlayerView: View {
 
     private var background: some View {
         LinearGradient(
-            colors: [accent.opacity(0.6), Color(.systemBackground)],
+            colors: [accent.opacity(0.6), .appBackground],
             startPoint: .top,
             endPoint: .bottom
         )
@@ -67,7 +67,7 @@ private extension PlayerView {
                     .scaledToFill()
             } else {
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.secondary.opacity(0.2))
+                    .fill(.appImagePlaceholder)
                     .overlay(Image(systemName: SystemImage.mic).font(.system(size: 60)))
             }
         }

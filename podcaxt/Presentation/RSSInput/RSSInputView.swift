@@ -20,7 +20,7 @@ struct RSSInputView: View {
 
     private var background: some View {
         LinearGradient(
-            colors: [Color.accentColor.opacity(0.6), Color(.systemBackground)],
+            colors: [Color.accentColor.opacity(0.6), .appBackground],
             startPoint: .top,
             endPoint: .bottom
         )

@@ -35,7 +35,7 @@ struct MiniPlayerView: View {
             if let image = imageLoader.image {
                 image.resizable().scaledToFill()
             } else {
-                Color.secondary.opacity(0.2)
+                Color.appImagePlaceholder
                     .overlay(Image(systemName: SystemImage.mic))
             }
         }

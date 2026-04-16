@@ -39,7 +39,7 @@ private extension PodcastDetailView {
                 .offset(y: isScrollingUp ? -offset : 0)
                 .overlay(alignment: .bottom) {
                     LinearGradient(
-                        colors: [.clear, Color(.systemBackground)],
+                        colors: [.clear, .appBackground],
                         startPoint: .top,
                         endPoint: .bottom
                     )
@@ -113,12 +113,12 @@ private extension PodcastDetailView {
     @ViewBuilder
     var coverImage: some View {
         if imageLoader.isLoading {
-            Color.secondary.opacity(0.2)
+            Color.appImagePlaceholder
                 .overlay(ProgressView())
         } else if let image = imageLoader.image {
             image.resizable().scaledToFill()
         } else {
-            Color.secondary.opacity(0.2)
+            Color.appImagePlaceholder
                 .overlay(Image(systemName: SystemImage.mic).font(.system(size: 60)))
         }
     }
