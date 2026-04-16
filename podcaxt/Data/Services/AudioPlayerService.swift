@@ -108,7 +108,9 @@ final class AudioPlayerService: AudioPlaying {
 // MARK: - Private
 
 private extension AudioPlayerService {
-    func play(episode: Episode) {
+    /// Loads an episode and starts playback.
+    /// - Parameter episode: Episode to play.
+    private func play(episode: Episode) {
         currentEpisode = episode
         let item = AVPlayerItem(url: episode.enclosureURL)
         player.replaceCurrentItem(with: item)
@@ -116,12 +118,14 @@ private extension AudioPlayerService {
         play()
     }
 
-    func setupAudioSession() {
+    /// Configures the audio session for playback.
+    private func setupAudioSession() {
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
         try? AVAudioSession.sharedInstance().setActive(true)
     }
 
-    func observePlayerStatus() {
+    /// Adds a periodic time observer to track playback progress.
+    private func observePlayerStatus() {
         timeObserver = player.addPeriodicTimeObserver(
             forInterval: CMTime(seconds: 0.5, preferredTimescale: 600),
             queue: .main
@@ -130,7 +134,9 @@ private extension AudioPlayerService {
         }
     }
 
-    func observeDuration(for item: AVPlayerItem) {
+    /// Observes duration and status changes for the given player item.
+    /// - Parameter item: The AVPlayerItem to observe.
+    private func observeDuration(for item: AVPlayerItem) {
         item.publisher(for: \.duration)
             .compactMap { $0.isNumeric ? $0.seconds : nil }
             .receive(on: DispatchQueue.main)
@@ -148,7 +154,8 @@ private extension AudioPlayerService {
             .store(in: &cancellables)
     }
 
-    func observePlayToEnd() {
+    /// Observes when playback reaches the end and advances to the next episode.
+    private func observePlayToEnd() {
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in self?.nextEpisode() }

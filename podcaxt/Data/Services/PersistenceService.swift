@@ -13,6 +13,8 @@ final class PersistenceService: FeedHistoryPersisting {
     private let key = Strings.Persistence.rssFeedHistoryKey
     private let defaults: UserDefaults
 
+    /// Creates a PersistenceService instance with the specified UserDefaults.
+    /// - Parameter defaults: UserDefaults instance to use for storage. Defaults to standard UserDefaults.
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }

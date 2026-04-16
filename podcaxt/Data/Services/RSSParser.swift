@@ -28,6 +28,8 @@ private final class ParseContext: NSObject, XMLParserDelegate {
     private var currentText = ""
     private var podcastBuilder = PodcastBuilder()
 
+    /// Called when the parser encounters a start tag.
+    /// Initializes episode builders and extracts attributes like enclosure and image URLs.
     func parser(_ parser: XMLParser, didStartElement element: String, namespaceURI: String?, qualifiedName: String?, attributes: [String: String] = [:]) {
         currentText = ""
 
@@ -51,10 +53,13 @@ private final class ParseContext: NSObject, XMLParserDelegate {
         }
     }
 
+    /// Accumulates text content between XML tags.
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         currentText += string
     }
 
+    /// Called when the parser encounters an end tag.
+    /// Assigns accumulated text to the appropriate podcast or episode field.
     func parser(_ parser: XMLParser, didEndElement element: String, namespaceURI: String?, qualifiedName: String?) {
         let text = currentText.trimmingCharacters(in: .whitespacesAndNewlines)
 
@@ -103,6 +108,8 @@ private final class PodcastBuilder {
     var description = ""
     var author = ""
 
+    /// Builds a Podcast instance from accumulated data.
+    /// Returns nil if required fields are missing.
     func build(episodes: [Episode]) -> Podcast? {
         guard let title, let link, let language, let imageURL else { return nil }
         return Podcast(
@@ -135,6 +142,8 @@ private final class EpisodeBuilder {
     var episodeNumber: Int?
     var episodeType: EpisodeType = .full
 
+    /// Builds an Episode instance from accumulated data.
+    /// Returns nil if required fields are missing.
     func build() -> Episode? {
         guard let title, let enclosureURL, let guid else { return nil }
         return Episode(
@@ -158,6 +167,8 @@ private final class EpisodeBuilder {
 
 // MARK: - Helpers
 
+/// Parses duration string from RSS feed into seconds.
+/// Supports formats: seconds ("123"), minutes:seconds ("12:34"), or hours:minutes:seconds ("1:23:45").
 private func parseDuration(_ text: String) -> TimeInterval? {
     let parts = text.split(separator: ":").compactMap { Double($0) }
     switch parts.count {

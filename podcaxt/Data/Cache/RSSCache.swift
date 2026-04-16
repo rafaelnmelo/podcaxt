@@ -42,12 +42,17 @@ actor RSSCache: RSSCaching {
     }
 
     /// Returns cached `PodcastMetadata` for the given URL, or `nil` if not found.
+    /// - Parameter url: RSS feed URL used as cache key.
     func cachedMetadata(for url: URL) -> PodcastMetadata? {
         guard let data = try? Data(contentsOf: metadataFile(for: url)) else { return nil }
         return try? JSONDecoder().decode(PodcastMetadata.self, from: data)
     }
 
     /// Writes `PodcastMetadata` to disk for the given URL.
+    /// - Parameters:
+    ///   - metadata: Podcast metadata to cache.
+    ///   - url: RSS feed URL used as cache key.
+    /// - Throws: `FileManager` error if the write fails.
     func cacheMetadata(_ metadata: PodcastMetadata, for url: URL) throws {
         try JSONEncoder().encode(metadata).write(to: metadataFile(for: url))
     }

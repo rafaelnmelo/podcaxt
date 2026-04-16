@@ -9,6 +9,8 @@ final class ImageService: ImageFetching {
 
     private let cache: any ImageCaching
 
+    /// Creates an ImageService instance with the specified cache.
+    /// - Parameter cache: Cache implementation to use for storing images. Defaults to shared ImageCache.
     init(cache: any ImageCaching = ImageCache.shared) {
         self.cache = cache
     }

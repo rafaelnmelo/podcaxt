@@ -12,6 +12,10 @@ final class RSSService: RSSFetching {
     private let cache: any RSSCaching
     private let parser: any RSSParsing
 
+    /// Creates an RSSService instance with the specified cache and parser.
+    /// - Parameters:
+    ///   - cache: Cache implementation to use for storing RSS data. Defaults to shared RSSCache.
+    ///   - parser: Parser implementation to use for parsing RSS feeds. Defaults to RSSParser.
     init(cache: any RSSCaching = RSSCache.shared, parser: any RSSParsing = RSSParser()) {
         self.cache = cache
         self.parser = parser
