@@ -45,6 +45,7 @@
 		75C8982C2F7BEF04005D67F5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8982A2F7BEF04005D67F5 /* SettingsView.swift */; };
 		75C8982E2F7BEF1A005D67F5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8982D2F7BEF1A005D67F5 /* AppCoordinator.swift */; };
 		75C898302F7BF93B005D67F5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8982F2F7BF93B005D67F5 /* SettingsViewModel.swift */; };
+		75CAEA862F8A93A500B49B92 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CAEA852F8A93A500B49B92 /* DiskCache.swift */; };
 		75F3FB4C2F7761B900FEC5C7 /* RSSInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FB4A2F7761B900FEC5C7 /* RSSInputViewModel.swift */; };
 		75F3FB502F77633800FEC5C7 /* URL+RSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F3FB4D2F77633800FEC5C7 /* URL+RSS.swift */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		75C8982A2F7BEF04005D67F5 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		75C8982D2F7BEF1A005D67F5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		75C8982F2F7BF93B005D67F5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		75CAEA852F8A93A500B49B92 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		75F3FB4A2F7761B900FEC5C7 /* RSSInputViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSSInputViewModel.swift; sourceTree = "<group>"; };
 		75F3FB4D2F77633800FEC5C7 /* URL+RSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+RSS.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -270,6 +272,7 @@
 		756EAE002F75C1A600C3E9B2 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				75CAEA852F8A93A500B49B92 /* DiskCache.swift */,
 				756EADF82F75B89F00C3E9B2 /* ImageCache.swift */,
 				756EAE092F75CFCD00C3E9B2 /* RSSCache.swift */,
 			);
@@ -481,6 +484,7 @@
 				756EADF12F75B63600C3E9B2 /* RSSFeedURL.swift in Sources */,
 				75A2422B2F7C215C00830991 /* ContentView.swift in Sources */,
 				75B547732F7860510061301C /* TimeInterval+Formatting.swift in Sources */,
+				75CAEA862F8A93A500B49B92 /* DiskCache.swift in Sources */,
 				756EADFF2F75C08F00C3E9B2 /* ImageService.swift in Sources */,
 				75B309512F7AB4BF008D2D48 /* MiniPlayerView.swift in Sources */,
 				75B547712F78435A0061301C /* Podcast+Mock.swift in Sources */,
