@@ -33,43 +33,41 @@ private extension Logger {
         #if !DEBUG
         return
         #endif
-        self.debug("🌐 📤 Request Debug 📤 [\(id)]🏷️")
-        self.debug("🟣 URL: \(request.url?.absoluteString ?? "nil")")
-        self.debug("🟣 Method: \(request.httpMethod ?? "GET")")
+        var log = "🌐 📤 Request Debug 📤 [\(id)]🏷️\n"
+        log += "🟣 URL: \(request.url?.absoluteString ?? "nil")\n"
+        log += "🟣 Method: \(request.httpMethod ?? "GET")"
 
         if let headers = request.allHTTPHeaderFields, !headers.isEmpty {
-            self.debug("🟣 Headers: \(headers.map { "\($0.key): \($0.value)" }.joined(separator: ", "))")
+            log += "\n🟣 Headers:\n"
+            log += "\(headers.map { "\($0.key): \($0.value)" }.joined(separator: "\n"))"
         }
 
         if let body = request.httpBody {
-            self.debug("🟣 Body:")
-            logBody(body, contentType: request.value(forHTTPHeaderField: "Content-Type"))
+            log += "\n🟣 Body:\n"
+            log += getBodyLog(body, contentType: request.value(forHTTPHeaderField: "Content-Type"))
         }
+        
+        self.debug("\(log)")
     }
 
-    func logBody(_ body: Data, contentType: String?) {
-        #if !DEBUG
-        return
-        #endif
+    func getBodyLog(_ body: Data, contentType: String?) -> String {
         if let contentType,
            contentType.contains("multipart/form-data"),
            let boundary = contentType.components(separatedBy: "boundary=").last {
-            logMultipartBody(body, boundary: boundary)
+            return getMultipartBodyLog(body, boundary: boundary)
         } else if let string = String(data: body, encoding: .utf8) {
-            self.debug("🔹 \(string.prefix(500))")
+            return "🔹 \(string.prefix(500))"
         } else {
-            self.debug("🔹 [binary data: \(body.count) bytes]")
+            return "🔹 [binary data: \(body.count) bytes]"
         }
     }
 
-    func logMultipartBody(_ body: Data, boundary: String) {
-        #if !DEBUG
-        return
-        #endif
+    func getMultipartBodyLog(_ body: Data, boundary: String) -> String {
         let parts = String(data: body, encoding: .ascii)?
             .components(separatedBy: "--\(boundary)")
             .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty } ?? []
 
+        var log = ""
         for part in parts {
             let components = part.components(separatedBy: "\r\n\r\n")
             guard components.count > 1 else { continue }
@@ -83,42 +81,46 @@ private extension Logger {
             let content = components[1...].joined(separator: "\r\n\r\n")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
 
-            self.debug("\(headers)")
+            log += "\(headers)\n"
 
             if components[0].contains("image/jpeg") || components[0].contains("application/octet-stream") {
-                self.debug("🔹 [binary data omitted]")
+                log += "🔹 [binary data omitted]\n"
             } else if !content.isEmpty {
-                self.debug("🔹 Content: \(content.prefix(200))")
+                log += "🔹 Content: \(content.prefix(200))\n"
             }
         }
+        return log
     }
 
     func logResponse(_ response: URLResponse, data: Data, id: String) {
         #if !DEBUG
         return
         #endif
-        self.debug("🌐 📥 Response Debug 📥 [\(id)]🏷️")
+        var log = "🌐 📥 Response Debug 📥 [\(id)]🏷️\n"
 
         if let http = response as? HTTPURLResponse {
-            self.debug("🟢 Status: \(http.statusCode)")
+            log += "🟢 Status: \(http.statusCode)\n"
             if !http.allHeaderFields.isEmpty {
-                self.debug("🟢 Headers: \(http.allHeaderFields.map { "\($0.key): \($0.value)" }.joined(separator: ", "))")
+                log += "🟢 Headers:\n"
+                log += "\(http.allHeaderFields.map { "\($0.key): \($0.value)" }.joined(separator: "\n"))\n"
             }
         }
 
-        self.debug("🟢 Data (\(data.count) bytes):")
+        log += "🟢 Data (\(data.count) bytes):\n"
         if let string = String(data: data, encoding: .utf8) {
-            self.debug("🔹 \(string.prefix(500))")
+            log += "🔹 \(string.prefix(500))"
         } else {
-            self.debug("🔹 [binary data]")
+            log += "🔹 [binary data]"
         }
+        
+        self.debug("\(log)")
     }
 
     func logError(_ error: Error, id: String) {
         #if !DEBUG
         return
         #endif
-        self.debug("🌐 ❌ Error Debug ❌ [\(id)]🏷️")
-        self.debug("🔴 Error: \(error.localizedDescription)")
+        let log = "🌐 ❌ Error Debug ❌ [\(id)]🏷️\n🔴 Error: \(error.localizedDescription)"
+        self.debug("\(log)")
     }
 }
